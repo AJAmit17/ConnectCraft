@@ -8,7 +8,7 @@ export default function AuthLayout({
     children: React.ReactNode
 }) {
     return (
-        <main className="relative">
+        <section className="relative">
             <Navbar />
             <div className="flex">
                 {/* leftSide bar */}
@@ -25,6 +25,6 @@ export default function AuthLayout({
 
             </div>
             {/* Toasters */}
-        </main>
+        </section>
     );
 };

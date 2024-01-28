@@ -56,7 +56,7 @@ const RightSideBar = () => {
   ]
 
   return (
-    <section className='bg-muted sticky right-0 top-0 flex h-screen flex-col justify-between overflow-y-auto p-6 pt-36 shadow-white-300 dark:shadow-none max-sm:hidden lg:w-[360px]'>
+    <section className='bg-muted sticky right-0 top-0 h-screen flex-col justify-between overflow-y-auto p-6 pt-36 shadow-white-300 dark:shadow-none lg:w-[290px] hidden lg:flex'>
       <div>
         <h3 className="text-3xl font-bold">Questions</h3>
         <div className='mt-7 flex w-full flex-col gap-[30px]'>
