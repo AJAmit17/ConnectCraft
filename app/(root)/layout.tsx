@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import LeftSideBar from "@/components/leftSidebar";
+import RightSideBar from "@/components/rightSidebar";
 
 export default function AuthLayout({
     children
@@ -20,9 +21,9 @@ export default function AuthLayout({
                 </section>
 
                 {/* right side bar */}
+                <RightSideBar />
 
             </div>
-
             {/* Toasters */}
         </main>
     );
