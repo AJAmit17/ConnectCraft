@@ -81,7 +81,7 @@ const Questions = () => {
                 Question Title<span className="ml-1 font-bold text-destructive">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                {/* <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} /> */}
+                <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
               </FormControl>
               <FormDescription className="mt-2.5">
                 Be Specific and Imagine you&apos;re asking a question to another person.
@@ -101,7 +101,7 @@ const Questions = () => {
               <FormControl className="mt-3.5">
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
-                  onInit={(evt, editor) => { editorRef.current = editor }}
+                  // onInit={(evt, editor) => { editorRef.current = editor }}
                   initialValue=""
                   init={{
                     height: 350,
@@ -139,23 +139,24 @@ const Questions = () => {
                 <>
                   <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" placeholder="Add Tags.."
                     onKeyDown={(e) => handleInputKeyDown(e, field)}
-                    {...field} />
+                  />
 
                   {field.value.length > 0 && (
                     <div className="flex items-center justify-start mt-2.5 gap-3">
                       {field.value.map((tag: any) => (
-                        <Badge
-                          key={tag}
-                          className="bg-primary-foreground text-primary-foreground border border-primary-foreground">
-                          {tag}
-                          <Image
-                            src="/assets/icons/close.svg"
-                            alt="close"
-                            width={16}
-                            height={16}
-                            className=" object-contain cursor-pointer invert-0"
-                          />
-                        </Badge>
+                        <div key={tag}>
+                          <Badge
+                            className=" bg-purple-500 text-white px-2">
+                            <span className="px-2">{tag}</span>
+                            <Image
+                              src="/assets/icons/close.svg"
+                              alt="close"
+                              width={16}
+                              height={16}
+                              className="object-contain cursor-pointer invert"
+                            />
+                          </Badge>
+                        </div>
                       ))}
                     </div>
                   )}
