@@ -97,9 +97,9 @@ const RightSideBar = () => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         test2
-      </div>
+      </div> */}
     </section>
   )
 }

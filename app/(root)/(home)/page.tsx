@@ -124,7 +124,7 @@ export default function Home() {
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="text-3xl font-bold">Ask Questions</h1>
-        <Link href='/' className="flex justify-end max-sm:w-full">
+        <Link href='/ask-questions' className="flex justify-end max-sm:w-full">
           <Button className="bg-violet-700 min-h-[46px] px-4 py-3 text-white">
             Ask a Question
           </Button>
