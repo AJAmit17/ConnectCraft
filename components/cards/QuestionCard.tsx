@@ -40,8 +40,7 @@ const QuestionCard = ({
                     </Link>
                 </div>
             </div>
-
-            {/* if signedIN */}
+            
             <div>
                 <div className='mt-3.5 flex flex-wrap gap-2'>
                     {tags.map((tag) => (
