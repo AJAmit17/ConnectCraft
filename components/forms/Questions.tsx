@@ -23,8 +23,11 @@ import { Badge } from "../ui/badge"
 import Image from "next/image"
 dotenv.config();
 
+const type: any = "create";
 const Questions = () => {
   const editorRef = useRef();
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -36,7 +39,19 @@ const Questions = () => {
   })
 
   function onSubmit(values: z.infer<typeof QuestionSchema>) {
-    console.log(values)
+    setIsSubmitting(true);
+    console.log(values);
+    // setIsSubmitting(false);
+    try {
+      // make a sync call to your API here -> creating a question
+      // contains all form data
+
+      //navigate to Homepage
+    } catch (error) {
+
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputKeyDown = (
@@ -68,6 +83,10 @@ const Questions = () => {
     }
   }
 
+  const handleTagRemover = (tag: string, field: any) => {
+    const newTags = field.value.filter((t: string) => t !== tag);
+    form.setValue('tags', newTags);
+  }
 
   return (
     <Form {...form}>
@@ -146,7 +165,8 @@ const Questions = () => {
                       {field.value.map((tag: any) => (
                         <div key={tag}>
                           <Badge
-                            className=" bg-purple-500 text-white px-2">
+                            className=" bg-purple-500 text-white flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+                          >
                             <span className="px-2">{tag}</span>
                             <Image
                               src="/assets/icons/close.svg"
@@ -154,6 +174,7 @@ const Questions = () => {
                               width={16}
                               height={16}
                               className="object-contain cursor-pointer invert"
+                              onClick={() => handleTagRemover(tag, field)}
                             />
                           </Badge>
                         </div>
@@ -169,7 +190,23 @@ const Questions = () => {
             </FormItem>
           )}
         />
-        <Button className=" bg-purple-800 text-white" type="submit">Submit</Button>
+        <Button
+          className=" bg-purple-800 text-white"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? (
+              <>
+                {type === "edit" ? "Editing..." : "Posting..."}
+              </>
+            )
+            : (
+              <>
+                {type === "edit" ? "Edit Question" : "Ask a Question"}
+              </>
+            )}
+        </Button>
       </form>
     </Form>
   )
