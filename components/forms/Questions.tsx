@@ -21,13 +21,22 @@ import { Editor } from '@tinymce/tinymce-react';
 import dotenv from 'dotenv';
 import { Badge } from "../ui/badge"
 import Image from "next/image"
+import { createQuestion } from "@/actions/question.action"
+import { useRouter, usePathname } from "next/navigation"
 dotenv.config();
 
 const type: any = "create";
-const Questions = () => {
+
+interface Props {
+  monogoUserId: string;
+}
+const Questions = ({ monogoUserId }: Props) => {
   const editorRef = useRef();
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -38,7 +47,7 @@ const Questions = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof QuestionSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
     console.log(values);
     // setIsSubmitting(false);
@@ -46,9 +55,18 @@ const Questions = () => {
       // make a sync call to your API here -> creating a question
       // contains all form data
 
-      //navigate to Homepage
-    } catch (error) {
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(monogoUserId),
+        path: pathname,
+      });
 
+      //navigate to Homepage
+      router.push("/");
+    } catch (error) {
+      console.log("somwthing error", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -115,12 +133,17 @@ const Questions = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col w-full gap-3">
               <FormLabel className=" text-sm">
-                Detailed explanation of you're Problem.<span className="ml-1 font-bold text-destructive">*</span>
+                Detailed explanation of you&apos;re Problem.<span className="ml-1 font-bold text-destructive">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
-                  // onInit={(evt, editor) => { editorRef.current = editor }}
+                  onInit={(evt, editor) => {
+                    //@ts-ignore
+                    editorRef.current = editor
+                  }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,

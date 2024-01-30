@@ -67,19 +67,19 @@ const QuestionCard = ({
                 <Matric
                     imgUrl='/assets/icons/like.svg'
                     alt="Upvotes"
-                    value={FormatLargeNumber(upvotes)}
+                    value={(upvotes)}
                     title=" Votes"
                 />
                 <Matric
                     imgUrl='/assets/icons/message.svg'
                     alt="Messages"
-                    value={FormatLargeNumber(answers.length)}
+                    value={(answers.length)}
                     title=" Answers"
                 />
                 <Matric
                     imgUrl='/assets/icons/eye.svg'
                     alt="Views"
-                    value={FormatLargeNumber(views)}
+                    value={(views)}
                     title=" Views"
                 />
             </div>
