@@ -49,7 +49,7 @@ const Questions = ({ monogoUserId }: Props) => {
 
   async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
-    console.log(values);
+    // console.log(values);
     // setIsSubmitting(false);
     try {
       // make a sync call to your API here -> creating a question
@@ -66,7 +66,7 @@ const Questions = ({ monogoUserId }: Props) => {
       //navigate to Homepage
       router.push("/");
     } catch (error) {
-      console.log("somwthing error", error);
+      console.log("something error", error);
     } finally {
       setIsSubmitting(false);
     }

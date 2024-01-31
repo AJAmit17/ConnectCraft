@@ -71,7 +71,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       message: "OK",
-      user: mongoUser,
+      user: mongoUser
     });
   }
 
@@ -91,6 +91,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({
       message: "OK",
+      user : mongoUser
     });
   }
 
@@ -103,7 +104,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       message: "OK",
-      user: deleteUser
+      user: deletedUser
     })
   }
   return new Response("", { status: 201 });
