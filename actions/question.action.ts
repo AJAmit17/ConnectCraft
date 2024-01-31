@@ -22,6 +22,7 @@ export async function getQuestions(params: GetQuestionsParams) {
       });
 
     return { questions };
+    
   } catch (error) {
     console.log(error);
     throw error;
@@ -59,7 +60,6 @@ export async function createQuestion(params: CreateQuestionParams) {
     });
 
     revalidatePath(path);
-    
   } catch (error) {
     console.log("error", error);
   }
