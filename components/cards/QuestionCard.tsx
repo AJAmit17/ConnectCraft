@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react'
 import Rendertags from '../Rendertags';
 import Matric from '../matric';
-import { FormatLargeNumber } from "@/lib/utils"
+import { FormatLargeNumber, formatTimeAgo } from "@/lib/utils"
 
 
 interface QCProps {
@@ -62,7 +62,7 @@ const QuestionCard = ({
                     value={author.name}
                     href={`/profile/${author._id}`}
                     isAuthor
-                    title=" - asked 1 Hour ago"
+                    title={formatTimeAgo(createdAt.getTime())}
                 />
                 <Matric
                     imgUrl='/assets/icons/like.svg'
