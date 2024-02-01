@@ -52,7 +52,6 @@ const Questions = ({ monogoUserId }: Props) => {
     try {
       // make a sync call to your API here -> creating a question
       // contains all form data
-      console.log(values)
 
       await createQuestion({
         title: values.title,

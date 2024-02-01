@@ -27,7 +27,7 @@ const CommunityPage = async () => {
                 />
             </div>
 
-            <section className='mt-12 flex flex-wrap gap-4'>
+            <section className='mt-12 flex flex-row justify-center items-center gap-4 flex-wrap'>
                 {result.tags.length > 0
                     ? (result.tags.map((tag) => (
                         <Link

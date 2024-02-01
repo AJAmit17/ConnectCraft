@@ -35,7 +35,7 @@ const QuestionCard = ({
             <div className='flex flex-col-reverse items-start justify-between gap-5 sm:flex-row'>
                 <div>
                     <span className=' text-sm line-clamp-1 flex'>{createdAt.toDateString()}</span>
-                    <Link href={`{questions/${_id}}`}>
+                    <Link href={`/question/${_id}`}>
                         <h2 className=' text-2xl font-bold line-clamp-1 flex-1'>{title}</h2>
                     </Link>
                 </div>
