@@ -49,11 +49,10 @@ const Questions = ({ monogoUserId }: Props) => {
 
   async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
-    // console.log(values);
-    // setIsSubmitting(false);
     try {
       // make a sync call to your API here -> creating a question
       // contains all form data
+      console.log(values)
 
       await createQuestion({
         title: values.title,
@@ -90,7 +89,7 @@ const Questions = ({ monogoUserId }: Props) => {
           });
         }
 
-        if (!field.value.includes(tagValue)) {
+        if (!field.value.includes(tagValue as never)) {
           form.setValue('tags', [...field.value, tagValue]);
           tagInput.value = '';
           form.clearErrors('tags');

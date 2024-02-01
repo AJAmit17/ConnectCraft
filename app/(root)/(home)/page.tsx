@@ -34,7 +34,7 @@ export default async function Home() {
         <Filter
           filters={HomePageFilters}
           otherClasses="min-h-[56px] sm:max-w-[170px]"
-          containerClasses="hidden max-md:flex"
+          containerClasses=""
         />
       </div>
 

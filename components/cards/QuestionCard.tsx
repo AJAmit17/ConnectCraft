@@ -31,7 +31,7 @@ const QuestionCard = ({
     createdAt
 }: QCProps) => {
     return (
-        <div className='bg-accent p-9 sm:px-11 rounded-[10px] shadow-xl'>
+        <div className='bg-primary-foreground p-9 sm:px-11 rounded-[10px] shadow-xl'>
             <div className='flex flex-col-reverse items-start justify-between gap-5 sm:flex-row'>
                 <div>
                     <span className=' text-sm line-clamp-1 flex'>{createdAt.toDateString()}</span>
