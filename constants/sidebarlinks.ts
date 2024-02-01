@@ -16,13 +16,8 @@ export const sidebarLinks: SidebarLink[] = [
         imageURL : "/assets/icons/suitcase.svg"
     },
     {
-        label: "Collections",
-        route: "/computer",
-        imageURL : "/assets/icons/Computer.svg"
-    },
-    {
         label: "Tags",
-        route: "/testing",
-        imageURL : "/assets/icons/job-search.svg"
+        route: "/tags",
+        imageURL : "/assets/icons/tag.svg"
     },
 ]

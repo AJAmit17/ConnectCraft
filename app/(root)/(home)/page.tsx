@@ -56,10 +56,11 @@ export default async function Home() {
             />
           ))
           : <NoResult
-            title="lorem35"
-            description="lorem56"
-            href="/ask-question"
-            BtnHeading="Ask a Question" />
+            title="No Questions Found"
+            description="Be the first user to ask questions."
+            href="/ask-questions"
+            BtnHeading="Ask a Question"
+          />
         }
       </div>
     </>
