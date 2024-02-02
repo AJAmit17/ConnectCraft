@@ -13,3 +13,8 @@ export const QuestionSchema = z.object({
     message: "Atleast 2 tags are required!!"
   }).max(5),
 });
+
+
+export const AnswerSchema = z.object({
+  answer : z.string().min(100),
+})
