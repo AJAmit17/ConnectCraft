@@ -8,7 +8,7 @@ export interface IAnswer extends Document {
   downvoted: Schema.Types.ObjectId[];
   createdAt: Date;
 }
-
+ 
 const AnswerSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   question: { type: Schema.Types.ObjectId, ref: "Question", required: true },

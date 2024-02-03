@@ -39,7 +39,7 @@ const Answers = ({
             await CreateAnswer({
                 content: values.answer,
                 author: JSON.parse(authorId),
-                question: JSON.parse(questionId),
+                question: questionId,
                 path: pathname
             })
             form.reset();
@@ -73,7 +73,7 @@ const Answers = ({
             <Form {...form}>
                 <form
                     className='mt-6 flex w-full flex-col gap-10'
-                // onSubmit={form.handleSubmit(handleCreateAnswer)}
+                    onSubmit={form.handleSubmit(handleCreateAnswer)}
                 >
                     <FormField
                         control={form.control}

@@ -1,6 +1,9 @@
+import { getAnswers } from '@/actions/answer.action';
 import { getQuestionsById } from '@/actions/question.action'
 import { getUserById } from '@/actions/user.action';
 import Rendertags from '@/components/Rendertags';
+import Voting from '@/components/Voting';
+import AnswersCard from '@/components/cards/AnswersCard';
 import Answers from '@/components/forms/Answers';
 import Matric from '@/components/matric';
 import ParseHtml from '@/components/parseHTML';
@@ -10,10 +13,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-interface Props{
-    question : string;
-    questionId : string;
-    authorId : string;
+interface Props {
+    question: string;
+    questionId: string;
+    authorId: string;
+    params: {
+        id: string;
+    };
 }
 
 const Page = async ({ params, authorId }: Props) => {
@@ -25,6 +31,7 @@ const Page = async ({ params, authorId }: Props) => {
     if (clerkId) {
         mongoUser = await getUserById({ userId: clerkId })
     }
+
     return (
         <>
             <div className='flex-start w-full flex-col'>
@@ -45,7 +52,17 @@ const Page = async ({ params, authorId }: Props) => {
                         </p>
                     </Link>
                     <div className='flex justify-end'>
-                        voting
+                        <Voting
+                            type="question"
+                            itemId={JSON.stringify(result._id)}
+                            userId={JSON.stringify(mongoUser._id)}
+                            // upvotes={result.upvotes.length}
+                            // downvotes={result.downvotes.length}
+                            // hasupVoted={result.upvotes.includes(mongoUser._id)}
+                            // hasdownVoted={result.downvotes.includes(mongoUser._id)}
+                            // hasSaved={mongoUser?.saved.includes(result._id)}
+                            upvotes={0}
+                            downvotes={0} hasupVoted={false} hasdownVoted={false}                        />
                     </div>
                 </div>
                 <h2 className='font-semibold mt-3.5 w-full text-left'>
@@ -88,9 +105,15 @@ const Page = async ({ params, authorId }: Props) => {
                 ))}
             </div>
 
+            <AnswersCard
+                questionId={result._id}
+                userId={JSON.stringify(mongoUser._id)}
+                totalAnswers={result.answers.length}
+            />
+
             <Answers
                 question={result.content}
-                questionId={JSON.stringify(result._id)}
+                questionId={result._id}
                 authorId={JSON.stringify(mongoUser._id)}
             />
         </>
