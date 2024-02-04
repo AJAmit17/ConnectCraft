@@ -17,9 +17,7 @@ interface Props {
     question: string;
     questionId: string;
     authorId: string;
-    params: {
-        id: string;
-    };
+    params: string;
 }
 
 const Page = async ({ params, authorId }: Props) => {
