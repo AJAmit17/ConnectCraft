@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image';
-import { downvoteQuestions, upvoteQuestions } from '@/actions/question.action';
+import { downvoteQuestions, upvoteAnswer, upvoteQuestions } from '@/actions/question.action';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 

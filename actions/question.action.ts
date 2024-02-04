@@ -5,13 +5,13 @@ import Tag from "@/Database/tag.model";
 import { connectToDB } from "@/lib/mongoose";
 import {
   CreateQuestionParams,
+  GetAnswersParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
 } from "./shared.types";
 import User from "@/Database/user.model";
 import { revalidatePath } from "next/cache";
-import { Elsie_Swash_Caps } from "next/font/google";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -153,6 +153,17 @@ export async function downvoteQuestions(params: QuestionVoteParams) {
     }
 
     revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function upvoteAnswer(params: GetAnswersParams) {
+  try {
+    connectToDB();
+
+    const { questionId, sortBy, page, pageSize } = params;
   } catch (error) {
     console.log(error);
     throw error;
