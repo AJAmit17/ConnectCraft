@@ -2,6 +2,9 @@
 
 import React from 'react'
 import Image from 'next/image';
+import { downvoteQuestions, upvoteQuestions } from '@/actions/question.action';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 interface Props {
   type: any;
@@ -25,13 +28,60 @@ const Voting = ({
   hasSaved
 }: Props) => {
 
+  const pathname = usePathname();
+  // const route = useRouter();
   const handleSave = () => {
 
   }
 
-  const handleVote = (action: string) => {
+  const handleVote = async (action: string) => {
+    if (!userId) {
+      return;
+    }
 
+    if (action === "upvote") {
+      if (type === "Question") {
+        await upvoteQuestions({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        })
+      }
+      else if (type === "Answer") {
+        // await upvoteAnswer({
+        //   answerId: JSON.parse(itemId),
+        //   userId: JSON.parse(userId),
+        //   hasupVoted,
+        //   hasdownVoted,
+        //   path: pathname,
+        // })
+      }
+    }
+
+    if (action === "downvote") {
+      if (type === "Question") {
+        await downvoteQuestions({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        })
+      }
+      else if (type === "Answer") {
+        // await upvoteAnswer({
+        //   answerId: JSON.parse(itemId),
+        //   userId: JSON.parse(userId),
+        //   hasupVoted,
+        //   hasdownVoted,
+        //   path: pathname,
+        // })
+      }
+    }
   }
+
   return (
     <div className='flex gap-5'>
       <div className='flex items-center justify-center gap-2.5'>
@@ -42,7 +92,7 @@ const Voting = ({
             width={20}
             height={20}
             className=' cursor-pointer'
-          // onClick={(e) => (e)}
+            onClick={() => handleVote('upvote')}
           />
 
           <div className='flex items-center justify-center min-h-[18px] rounded-sm p-1'>
@@ -54,17 +104,17 @@ const Voting = ({
 
         <div className='flex items-center justify-center gap-1.5'>
           <Image
-            src={hasupVoted ? "/assets/icons/downvoted.svg" : "/assets/icons/downvote.svg"}
+            src={hasdownVoted ? "/assets/icons/downvoted.svg" : "/assets/icons/downvote.svg"}
             alt="DownVoting"
             width={20}
             height={20}
             className=' cursor-pointer'
-          // onClick={(e) => (e)}
+            onClick={() => handleVote('downvote')}
           />
 
           <div className='flex items-center justify-center min-h-[18px] rounded-sm p-1'>
             <p>
-              {upvotes}
+              {downvotes}
             </p>
           </div>
         </div>
@@ -76,10 +126,10 @@ const Voting = ({
         width={20}
         height={20}
         className=' cursor-pointer'
-      // onClick={(e) => (e)}
+        // onClick={() => handleVote('downvote')}
       />
     </div>
   )
 }
 
-export default Voting
+export default Voting;

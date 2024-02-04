@@ -17,13 +17,11 @@ interface Props {
     question: string;
     questionId: string;
     authorId: string;
-    params: {
-        id: string;
-    };
 }
 
 const Page = async ({ params, authorId }: Props) => {
     const result = await getQuestionsById({ questionId: params.id });
+
     const { userId: clerkId } = auth();
 
     let mongoUser;
@@ -53,16 +51,15 @@ const Page = async ({ params, authorId }: Props) => {
                     </Link>
                     <div className='flex justify-end'>
                         <Voting
-                            type="question"
+                            type="Question"
                             itemId={JSON.stringify(result._id)}
                             userId={JSON.stringify(mongoUser._id)}
-                            // upvotes={result.upvotes.length}
-                            // downvotes={result.downvotes.length}
-                            // hasupVoted={result.upvotes.includes(mongoUser._id)}
-                            // hasdownVoted={result.downvotes.includes(mongoUser._id)}
-                            // hasSaved={mongoUser?.saved.includes(result._id)}
-                            upvotes={0}
-                            downvotes={0} hasupVoted={false} hasdownVoted={false}                        />
+                            upvotes={result.upvoted.length}
+                            downvotes={result.downvoted.length}
+                            hasupVoted={result.upvoted.includes(mongoUser._id)}
+                            hasdownVoted={result.downvoted.includes(mongoUser._id)}
+                            hasSaved={mongoUser?.saved.includes(result._id)}
+                        />
                     </div>
                 </div>
                 <h2 className='font-semibold mt-3.5 w-full text-left'>
