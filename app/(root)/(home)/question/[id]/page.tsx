@@ -20,7 +20,7 @@ interface Props {
     params: string;
 }
 
-const Page = async ({ params, authorId }: Props) => {
+const Page = async ({ question, questionId, authorId, params  }: Props) => {
     const result = await getQuestionsById({ questionId: params.id });
     const { userId: clerkId } = auth();
 
@@ -54,13 +54,14 @@ const Page = async ({ params, authorId }: Props) => {
                             type="question"
                             itemId={JSON.stringify(result._id)}
                             userId={JSON.stringify(mongoUser._id)}
-                            // upvotes={result.upvotes.length}
-                            // downvotes={result.downvotes.length}
-                            // hasupVoted={result.upvotes.includes(mongoUser._id)}
-                            // hasdownVoted={result.downvotes.includes(mongoUser._id)}
-                            // hasSaved={mongoUser?.saved.includes(result._id)}
+                            upvotes={result.upvoted.length}
+                            downvotes={result.downvoted.length}
+                            hasupVoted={result.upvoted.includes(mongoUser._id)}
+                            hasdownVoted={result.downvoted.includes(mongoUser._id)}
+                            hasSaved={mongoUser?.saved.includes(result._id)}
                             upvotes={0}
-                            downvotes={0} hasupVoted={false} hasdownVoted={false}                        />
+                            downvotes={0} hasupVoted={false} hasdownVoted={false} 
+                         />
                     </div>
                 </div>
                 <h2 className='font-semibold mt-3.5 w-full text-left'>
