@@ -3,8 +3,7 @@
 import React from 'react'
 import Image from 'next/image';
 import { downvoteQuestions, upvoteAnswer, upvoteQuestions } from '@/actions/question.action';
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface Props {
   type: any;

@@ -5,6 +5,7 @@ import { getAnswers } from '@/actions/answer.action';
 import Link from 'next/link';
 import Image from 'next/image';
 import ParseHtml from '../parseHTML';
+import Voting from '../Voting';
 
 interface Props {
     questionId: string;
@@ -22,54 +23,62 @@ const AnswersCard = async ({
     filter
 }: Props) => {
 
-    const result = await getAnswers({ questionId })
+    const answers = await getAnswers({ questionId });
+
+    console.log(answers);
 
     return (
         <div className='mt-13'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between mt-20'>
                 <h3 className='font-bold'>{totalAnswers} Answers</h3>
                 <Filter
                     filters={AnswerFilters}
                     otherClasses={''}
                     containerClasses={''}
                 />
-
-                <div>
-                    {result.answers.map((ans => (
-                        <article key={ans._id} className='border-b py-10'>
-                            <div className='flex items-center justify-between'>
-                                <div className='mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
-                                    {/* <h3 className='font-bold'>{ans.author.name}</h3>
-                                    <p className='text-sm'>{ans.content}</p> */}
-                                    <Link
-                                        href={`/profile/${ans.author.clerkId}`}
-                                        className="flex flex-1 items-start gap-1 sm:items-center"
-                                    >
-                                        <Image
-                                            src={ans.author.picture}
-                                            alt="testing"
-                                            width={20}
-                                            height={20}
-                                            className="rounded-full object-cover max-sm:mt-0.5"
-                                        />
-                                        <div className='flex flex-col sm:flex-row sm:items-center'>
-                                            <p className='font-semibold'>{ans.author.name}</p>
-                                            <p className='mt-0.5 ml-0.5 line-clamp-1'>
-                                                <span className='max-sm:hidden'>
-                                                    - answered{" "} 2 days back
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </Link>
-                                    <div className='flex justify-center'>
-                                        VOTING
+            </div>
+            <div>
+                {answers.answers.map((ans => (
+                    <article key={ans._id} className='border-b py-10'>
+                        <div className='flex items-center justify-between'>
+                            <div className='mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
+                                <Link
+                                    href={`/profile/${ans.author.clerkId}`}
+                                    className="flex flex-1 items-start gap-1 sm:items-center"
+                                >
+                                    <Image
+                                        src={ans.author.picture}
+                                        alt="testing"
+                                        width={20}
+                                        height={20}
+                                        className="rounded-full object-cover max-sm:mt-0.5"
+                                    />
+                                    <div className='flex flex-col sm:flex-row sm:items-center'>
+                                        <p className='font-semibold'>{ans.author.name}</p>
+                                        <p className='mt-0.5 ml-0.5 line-clamp-1'>
+                                            <span className='max-sm:hidden'>
+                                                - answered{" "} 2 days back
+                                            </span>
+                                        </p>
                                     </div>
+                                </Link>
+                                <div className='flex justify-center'>
+                                    <Voting
+                                        type="Answer"
+                                        itemId={JSON.stringify(ans._id)}
+                                        userId={JSON.stringify(userId)}
+                                        upvotes={ans.upvoted.length}
+                                        downvotes={ans.downvoted.length}
+                                        hasupVoted={ans.upvoted.includes(userId)}
+                                        hasdownVoted={ans.downvoted.includes(userId)}
+                                        // hasSaved={userId?.saved.includes(ans._id)}
+                                    />
                                 </div>
                             </div>
-                            <ParseHtml data={ans.content} />
-                        </article>
-                    )))}
-                </div>
+                        </div>
+                        <ParseHtml data={ans.content} />
+                    </article>
+                )))}
             </div>
         </div>
     )
