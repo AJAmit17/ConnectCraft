@@ -20,7 +20,7 @@ interface Props {
     params : any;
 }
 
-const Page = async ({ question , questionId, authorId, params }: Props) => {
+const QuestionPage = async ({ question , questionId, authorId, params }: Props) => {
     const result = await getQuestionsById({ questionId: params.id });
 
     const { userId: clerkId } = auth();
@@ -118,4 +118,4 @@ const Page = async ({ question , questionId, authorId, params }: Props) => {
     )
 }
 
-export default Page;
+export default QuestionPage;
