@@ -13,14 +13,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-//interface Props {
-//    question: string;
-//    questionId: string;
-//    authorId: string;
-//    params : any;
-//}
+interface Props {
+   question: string;
+   questionId: string;
+   authorId: string;
+   params: { slug: string }
+}
 
-const QuestionPage = async ({ params }) => {
+const QuestionPage = async ({ question, question ID, authorId, params }:Props) => {
     const result = await getQuestionsById({ questionId: params.id });
 
     const { userId: clerkId } = auth();
