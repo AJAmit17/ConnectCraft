@@ -20,4 +20,9 @@ export const sidebarLinks: SidebarLink[] = [
         route: "/tags",
         imageURL : "/assets/icons/tag.svg"
     },
+    {
+        label: "Collections",
+        route: "/collection",
+        imageURL : "/assets/icons/tag.svg"
+    },
 ]

@@ -25,7 +25,7 @@ const AnswersCard = async ({
 
     const answers = await getAnswers({ questionId });
 
-    console.log(answers);
+    // console.log(answers);
 
     return (
         <div className='mt-13'>
@@ -62,7 +62,7 @@ const AnswersCard = async ({
                                         </p>
                                     </div>
                                 </Link>
-                                <div className='flex justify-center'>
+                                <div className='flex justify-end'>
                                     <Voting
                                         type="Answer"
                                         itemId={JSON.stringify(ans._id)}
@@ -71,7 +71,6 @@ const AnswersCard = async ({
                                         downvotes={ans.downvoted.length}
                                         hasupVoted={ans.upvoted.includes(userId)}
                                         hasdownVoted={ans.downvoted.includes(userId)}
-                                        // hasSaved={userId?.saved.includes(ans._id)}
                                     />
                                 </div>
                             </div>

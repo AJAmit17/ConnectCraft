@@ -2,8 +2,14 @@
 
 import React from 'react'
 import Image from 'next/image';
-import { downvoteQuestions, upvoteAnswer, upvoteQuestions } from '@/actions/question.action';
+import {
+  downvoteAnswer,
+  downvoteQuestions,
+  upvoteAnswer,
+  upvoteQuestions
+} from '@/actions/question.action';
 import { usePathname, useRouter } from 'next/navigation';
+import { toggleSave } from '@/actions/user.action';
 
 interface Props {
   type: any;
@@ -29,8 +35,12 @@ const Voting = ({
 
   const pathname = usePathname();
   // const route = useRouter();
-  const handleSave = () => {
-
+  const handleSave = async () => {
+    await toggleSave({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname
+    })
   }
 
   const handleVote = async (action: string) => {
@@ -49,13 +59,13 @@ const Voting = ({
         })
       }
       else if (type === "Answer") {
-        // await upvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // })
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        })
       }
     }
 
@@ -70,13 +80,13 @@ const Voting = ({
         })
       }
       else if (type === "Answer") {
-        // await upvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // })
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        })
       }
     }
   }
@@ -119,14 +129,16 @@ const Voting = ({
         </div>
       </div>
 
-      <Image
-        src={hasSaved ? "/assets/icons/star-filled.svg" : "/assets/icons/star-red.svg"}
-        alt="Star Icon"
-        width={20}
-        height={20}
-        className=' cursor-pointer'
-        // onClick={() => handleVote('downvote')}
-      />
+      {type === "Question" && (
+        <Image
+          src={hasSaved ? "/assets/icons/star-filled.svg" : "/assets/icons/star-red.svg"}
+          alt="Star Icon"
+          width={20}
+          height={20}
+          className=' cursor-pointer'
+          onClick={handleSave}
+        />
+      )}
     </div>
   )
 }

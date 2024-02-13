@@ -18,8 +18,6 @@ export async function CreateAnswer(params: CreateAnswerParams) {
       $push: { answers: newAnswer._id },
     });
 
-    // console.log(newAnswer);
-
     revalidatePath(path);
   } catch (error) {
     console.log(error);

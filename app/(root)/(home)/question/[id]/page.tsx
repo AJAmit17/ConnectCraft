@@ -17,11 +17,11 @@ interface Props {
    question: string;
    questionId: string;
    authorId: string;
-   params: { slug: string }
+   params: { id: string }
 }
 
 const QuestionPage = async ({ question, questionId, authorId, params }:Props) => {
-    const result = await getQuestionsById({ questionId: params.slug });
+    const result = await getQuestionsById({ questionId: params.id });
 
     const { userId: clerkId } = auth();
 
@@ -105,7 +105,7 @@ const QuestionPage = async ({ question, questionId, authorId, params }:Props) =>
 
             <AnswersCard
                 questionId={result._id}
-                userId={JSON.stringify(mongoUser._id)}
+                userId={mongoUser._id}
                 totalAnswers={result.answers.length}
             />
 
