@@ -11,6 +11,7 @@ import {
 import { usePathname, useRouter } from 'next/navigation';
 import { toggleSave } from '@/actions/user.action';
 
+
 interface Props {
   type: any;
   itemId: string;
@@ -41,6 +42,8 @@ const Voting = ({
       questionId: JSON.parse(itemId),
       path: pathname
     })
+
+    console.log("saved")
   }
 
   const handleVote = async (action: string) => {
