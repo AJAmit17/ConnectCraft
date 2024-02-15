@@ -113,16 +113,16 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
 
     if (isQuestionSaved) {
       // remove questions from saved
-      await User.findByIdAndUpdate( userId,
+      await User.findByIdAndUpdate(
+        userId,
         { $pull: { saved: questionId } },
         { new: true }
       );
-    }
-    else{
+    } else {
       // add questions to saved
       await User.findByIdAndUpdate(
         userId,
-        { $addToSet : { saved: questionId } },
+        { $addToSet: { saved: questionId } },
         { new: true }
       );
     }
@@ -134,35 +134,65 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
   }
 }
 
-export async function getSavedQuestions(params: GetSavedQuestionsParams) {
+export async function getSavedQuestion(params: GetSavedQuestionsParams) {
   try {
     connectToDB();
 
-    const {clerkId, page = 1, pageSize = 10, filter, searchQuery} = params;
+    const { clerkId, searchQuery, filter, page = 1, pageSize = 7 } = params;
 
-    const query: FilterQuery<typeof Question> = searchQuery ? { title: { $regex: new RegExp(searchQuery, "i")} } : {  } ;
+    const query: FilterQuery<typeof Question> = {};
 
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    let sortOption = {};
+
+    switch (filter) {
+      case "most_recent":
+        sortOption = { createdAt: -1 };
+        break;
+      case "oldest":
+        sortOption = { createdAt: 1 };
+        break;
+      case "most_voted":
+        sortOption = { upvotes: -1 };
+        break;
+      case "most_viewed":
+        sortOption = { views: -1 };
+        break;
+      case "most_answered":
+        sortOption = { answers: -1 };
+        break;
+
+      default:
+        break;
+    }
+
+    // @ts-ignore
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
       match: query,
-      options : {
-        sort : {createdAt : -1},
-      },
-      populate : [
+      populate: [
         { path: "tags", model: Tag, select: "_id name" },
-        { path: "user", model: User, select: "_id clerkId name picture" },
-      ]
-    })
+        { path: "author", model: User, select: "_id clerkId name picture" },
+      ],
+    });
 
-    if(!user){
-      throw new Error("User not found")
+    console.log(user)
+
+    if (!user) {
+      throw new Error("User not found");
     }
-    
+
+    const isNext = user.saved.length > pageSize;
+
     const savedQuestions = user.saved;
 
-    console.log(savedQuestions);
-
-    return { questions : savedQuestions};
+    return { questions: savedQuestions, isNext };
   } catch (error) {
     console.log(error);
     throw error;

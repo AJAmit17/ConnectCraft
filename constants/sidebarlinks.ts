@@ -13,7 +13,12 @@ export const sidebarLinks: SidebarLink[] = [
     {
         label: "Community",
         route: "/community",
-        imageURL : "/assets/icons/suitcase.svg"
+        imageURL : "/assets/icons/users.svg"
+    },    
+    {
+        label: "Collections",
+        route: "/collection",
+        imageURL : "/assets/icons/star.svg"
     },
     {
         label: "Tags",
@@ -21,8 +26,13 @@ export const sidebarLinks: SidebarLink[] = [
         imageURL : "/assets/icons/tag.svg"
     },
     {
-        label: "Collections",
-        route: "/collection",
-        imageURL : "/assets/icons/tag.svg"
+        label: "Profile",
+        route: "/profile",
+        imageURL : "/assets/icons/user.svg"
     },
+    {
+        label: "Ask a Question",
+        route: "/ask-question",
+        imageURL : "/assets/icons/question.svg"
+    }
 ]

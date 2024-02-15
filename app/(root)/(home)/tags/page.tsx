@@ -27,16 +27,16 @@ const CommunityPage = async () => {
                 />
             </div>
 
-            <section className='mt-12 flex flex-row justify-center items-center gap-4 flex-wrap'>
+            <section className="mt-12 flex flex-wrap gap-6">
                 {result.tags.length > 0
                     ? (result.tags.map((tag) => (
                         <Link
                             key={tag._id}
                             href={`/tags/${tag._id}`}
-                            className="w-1/2 max-sm:w-full cursor-pointer"
+                            // className="w-1/2 max-sm:w-full cursor-pointer"
                         >
                             <article className='flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]'>
-                                <div className=' w-fit rounded-sm px-5 py-1.5 text-center'>
+                                <div className='w-fit rounded-md px-5 py-[8px]'>
                                     <p>{tag.name}</p>
                                 </div>
 
