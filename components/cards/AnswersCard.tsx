@@ -62,17 +62,17 @@ const AnswersCard = async ({
                                         </p>
                                     </div>
                                 </Link>
-                                <div className='flex justify-end'>
-                                    <Voting
-                                        type="Answer"
-                                        itemId={JSON.stringify(ans._id)}
-                                        userId={JSON.stringify(userId)}
-                                        upvotes={ans.upvoted.length}
-                                        downvotes={ans.downvoted.length}
-                                        hasupVoted={ans.upvoted.includes(userId)}
-                                        hasdownVoted={ans.downvoted.includes(userId)}
-                                    />
-                                </div>
+                            </div>
+                            <div className='flex justify-end'>
+                                <Voting
+                                    type="Answer"
+                                    itemId={JSON.stringify(ans._id)}
+                                    userId={JSON.stringify(userId)}
+                                    upvotes={ans.upvoted.length}
+                                    downvotes={ans.downvoted.length}
+                                    hasupVoted={ans.upvoted.includes(userId)}
+                                    hasdownVoted={ans.downvoted.includes(userId)}
+                                />
                             </div>
                         </div>
                         <ParseHtml data={ans.content} />

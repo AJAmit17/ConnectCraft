@@ -3,24 +3,30 @@ import React from 'react'
 import Rendertags from '../Rendertags';
 import Matric from '../matric';
 import { FormatLargeNumber, formatTimeAgo } from "@/lib/utils"
-
+import Image from 'next/image';
 
 interface QCProps {
-    _id: number,
-    title: string,
-    tags: { _id: number, name: string }[],
+    _id: number;
+    title: string;
+    tags: {
+        _id: number,
+        name: string
+    }[];
     author: {
         _id: number,
         name: string,
         picture: string
-    },
-    upvotes: number,
-    views: number,
-    answers: Array<object>,
-    createdAt: Date
+    };
+    upvotes: number;
+    views: number;
+    answers: Array<object>;
+    createdAt: Date;
+    type?: string;
+    clerkId?: string;
 }
 
 const QuestionCard = ({
+    clerkId,
     _id,
     title,
     tags,
@@ -28,7 +34,8 @@ const QuestionCard = ({
     upvotes,
     views,
     answers,
-    createdAt
+    createdAt,
+    type
 }: QCProps) => {
     return (
         <div className='bg-primary-foreground p-9 sm:px-11 rounded-[10px] shadow-xl'>
@@ -36,11 +43,20 @@ const QuestionCard = ({
                 <div>
                     <span className=' text-sm line-clamp-1 flex'>{createdAt.toDateString()}</span>
                     <Link href={`/question/${_id}`}>
-                        <h2 className=' text-2xl font-bold line-clamp-1 flex-1'>{title}</h2>
+                        <h3 className=' text-2xl font-bold line-clamp-1 flex-1'>{title}</h3>
                     </Link>
                 </div>
+                {/* {type === "Collection" && (
+                    <Image
+                        src="/assets/icons/star-filled.svg"
+                        alt="star"
+                        width={18}
+                        height={18}
+                        className="cursor-pointer"
+                    />
+                )} */}
             </div>
-            
+
             <div>
                 <div className='mt-3.5 flex flex-wrap gap-2'>
                     {tags.map((tag) => (
