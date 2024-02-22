@@ -29,11 +29,14 @@ const CommunityPage = async () => {
       <section className="mt-10 flex flex-col flex-wrap gap-6 sm:flex-row">
         {result.user.length > 0
           ? (result.user.map((user) => (
-            <UserCard key={user.name} user={user} />
+            <UserCard
+              key={user.name}
+              user={user}
+            />
           )))
           : (
             <>
-              <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
+              <div className="mx-auto max-w-4xl text-center">
                 <p>No Users Yet ...</p>
                 <Link href="/sign-up" className="mt-2 font-bold text-accent-blue">
                   Join to be the first ...

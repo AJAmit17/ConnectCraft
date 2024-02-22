@@ -32,7 +32,7 @@ export const sidebarLinks: SidebarLink[] = [
     },
     {
         label: "Ask a Question",
-        route: "/ask-question",
+        route: "/ask-questions",
         imageURL : "/assets/icons/question.svg"
     }
 ]
