@@ -14,6 +14,7 @@ import {
 import { revalidatePath } from "next/cache";
 import Question from "@/Database/question.model";
 import Tag from "@/Database/tag.model";
+import { collectGenerateParams } from "next/dist/build/utils";
 
 export async function getUserById(params: any) {
   try {
@@ -104,7 +105,7 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
     const { userId, questionId, path } = params;
 
     const user = await User.findById(userId);
-
+    
     if (!user) {
       throw new Error("User not found");
     }
@@ -191,6 +192,7 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
     const isNext = user.saved.length > pageSize;
 
     const savedQuestions = user.saved;
+
 
     return { questions: savedQuestions, isNext };
   } catch (error) {

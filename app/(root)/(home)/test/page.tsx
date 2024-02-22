@@ -1,5 +1,7 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { LayoutGrid } from "@/components/ui/layout-grid";
+import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 
 export default function LayoutGridDemo() {
@@ -18,6 +20,9 @@ const SkeletonOne = () => {
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
         A serene and tranquil retreat, this house in the woods offers a peaceful
         escape from the hustle and bustle of city life.
+        <Button>
+          <Link href="/" >View</Link>
+        </Button>
       </p>
     </div>
   );
