@@ -4,6 +4,8 @@ import Rendertags from '../Rendertags';
 import Matric from '../matric';
 import { FormatLargeNumber, formatTimeAgo } from "@/lib/utils"
 import Image from 'next/image';
+import { SignedIn } from '@clerk/nextjs';
+import EditDeleteAction from '../EditDeleteAction';
 
 interface QCProps {
     _id: number;
@@ -37,6 +39,10 @@ const QuestionCard = ({
     createdAt,
     type
 }: QCProps) => {
+
+    //@ts-ignore
+    const showActionButtons = clerkId && clerkId === author.clerkId;
+
     return (
         <div className='bg-primary-foreground p-9 sm:px-11 rounded-[10px] shadow-xl'>
             <div className='flex flex-col-reverse items-start justify-between gap-5 sm:flex-row'>
@@ -46,6 +52,13 @@ const QuestionCard = ({
                         <h3 className=' text-2xl font-bold line-clamp-1 flex-1'>{title}</h3>
                     </Link>
                 </div>
+
+                <SignedIn>
+                    {type === "Profile" && showActionButtons && (
+                        <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+                    )}
+                </SignedIn>
+                
                 {/* {type === "Collection" && (
                     <Image
                         src="/assets/icons/star-filled.svg"
