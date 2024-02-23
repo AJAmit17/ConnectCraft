@@ -16,5 +16,7 @@ export const QuestionSchema = z.object({
 
 
 export const AnswerSchema = z.object({
-  answer : z.string().min(100),
+  answer : z.string().min(100,{
+    message : "Atleast 100 character are required!!"
+  }),
 })

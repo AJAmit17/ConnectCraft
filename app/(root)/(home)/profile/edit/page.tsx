@@ -1,13 +1,23 @@
-import { auth } from '@clerk/nextjs';
-import React from 'react'
+import { ParamsProps } from "@/Types";
+import { getUserById } from "@/actions/user.action";
+import ProfileForm from "@/components/ProfileForm";
+import { auth } from "@clerk/nextjs";
 
-const ProfilePage = async() => {
+const Page = async ({ params }: ParamsProps) => {
+    const { userId } = auth();
 
-    const { userId: clerkId } = auth();
-    // const userInfo = await getUserInfo({ userId: params.id });
+    if (!userId) return null;
+
+    const mongoUser = await getUserById({ userId });
+
     return (
-        <div>ProfilePage</div>
-    )
-}
+        <>
+            <h1>Edit Profile</h1>
+            <div className="mt-9">
+                <ProfileForm clerkId={userId} user={JSON.stringify(mongoUser)} />
+            </div>
+        </>
+    );
+};
 
-export default ProfilePage
+export default Page;

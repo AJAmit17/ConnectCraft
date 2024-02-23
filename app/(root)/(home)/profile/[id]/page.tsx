@@ -8,12 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsTrigger, TabsContent, TabsList } from '@/components/ui/tabs';
 import QuestionTab from '@/components/QuestionTab';
 import AnswerTab from '@/components/AnswerTab';
+import ProfileLink from '@/components/ProfileLink';
+import { getJoinedDate } from '@/lib/utils';
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
     const { userId: clerkId } = auth();
     const userInfo = await getUserInfo({ userId: params.id });
 
-    // console.log(userInfo)
+    console.log(userInfo)
 
     return (
         <>
@@ -35,7 +37,28 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
                         </p>
 
                         <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-                            profile Info
+                            {/* PORTFOLIO */}
+                            {userInfo?.user.protfolio && (
+                                <ProfileLink
+                                    imgUrl="/assets/icons/link.svg"
+                                    href={userInfo.user.protfolio}
+                                    title="Portfolio"
+                                />
+                            )}
+
+                            {/* LOCATION */}
+                            {userInfo?.user.location && (
+                                <ProfileLink
+                                    imgUrl="/assets/icons/location.svg"
+                                    title={userInfo.user.location}
+                                />
+                            )}
+
+                            {/* JOINAT */}
+                            <ProfileLink
+                                imgUrl="/assets/icons/calendar.svg"
+                                title={`${getJoinedDate(userInfo?.user.joinedAt)}`}
+                            />
                         </div>
 
                         {userInfo?.user.bio && (

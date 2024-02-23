@@ -37,3 +37,10 @@ export function formatTimeAgo(timestamp: number): string {
     return `asked ${minutes} ${minutes === 1 ? "minute" : "minutes"} back`;
   }
 }
+
+export function getJoinedDate(date: Date): string {
+  const month: string = date.toLocaleString("default", { month: "long" });
+  const year: number = date.getFullYear();
+
+  return `Joined | ${month} ${year}`;
+}
