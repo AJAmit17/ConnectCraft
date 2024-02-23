@@ -29,6 +29,9 @@ interface Props {
 
 const ProfileForm = ({ clerkId, user }: Props) => {
   const parsed = JSON.parse(user);
+
+  console.log(parsed);
+
   const router = useRouter();
   const pathname = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,7 +49,7 @@ const ProfileForm = ({ clerkId, user }: Props) => {
   const formSchema = z.object({
     name: z.string().min(5).max(50),
     username: z.string().min(5).max(50),
-    portfolioWebsite: z
+    portfolio: z
       .string()
       .refine((value) => value === "" || isURL(value))
       .optional(),
@@ -60,7 +63,7 @@ const ProfileForm = ({ clerkId, user }: Props) => {
     defaultValues: {
       name: parsed.name || "",
       username: parsed.username || "",
-      portfolioWebsite: parsed.portfolioWebsite || "",
+      portfolio: parsed.protfolio || "",
       location: parsed.location || "",
       bio: parsed.bio || "",
     },
@@ -76,7 +79,7 @@ const ProfileForm = ({ clerkId, user }: Props) => {
         updateData: {
           name: values.name,
           username: values.username,
-          protfolio: values.portfolioWebsite,
+          protfolio: values.portfolio,
           location: values.location,
           bio: values.bio,
         },
@@ -102,12 +105,12 @@ const ProfileForm = ({ clerkId, user }: Props) => {
           name="name"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark400_light700 paragraph-semibold">
-                Name <span className="text-primary-500">*</span>
+              <FormLabel className="font-semibold">
+                Name <span className=" text-rose-600">*</span>
               </FormLabel>
               <FormControl>
                 <Input
-                  className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="min-h-[56px] border"
                   placeholder="Your name"
                   {...field}
                 />
@@ -121,8 +124,8 @@ const ProfileForm = ({ clerkId, user }: Props) => {
           name="username"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark400_light700 paragraph-semibold">
-                Username <span className="text-primary-500">*</span>
+              <FormLabel className="font-semibold">
+                Username <span className="text-rose-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -137,16 +140,16 @@ const ProfileForm = ({ clerkId, user }: Props) => {
         />
         <FormField
           control={form.control}
-          name="portfolioWebsite"
+          name="portfolio"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark400_light700 paragraph-semibold">
+              <FormLabel className="font-semibold">
                 Portfolio Url
               </FormLabel>
               <FormControl>
                 <Input
                   type="url"
-                  className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="min-h-[56px] border"
                   placeholder="url: https://www.example.com/"
                   {...field}
                 />
@@ -160,12 +163,12 @@ const ProfileForm = ({ clerkId, user }: Props) => {
           name="location"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark400_light700 paragraph-semibold">
-                Location <span className="text-primary-500">*</span>
+              <FormLabel className="font-semibold">
+                Location <span className="text-rose-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
-                  className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="min-h-[56px] border"
                   placeholder="Where are you from?"
                   {...field}
                 />
@@ -179,12 +182,12 @@ const ProfileForm = ({ clerkId, user }: Props) => {
           name="bio"
           render={({ field }) => (
             <FormItem className="space-y-3.5">
-              <FormLabel className="text-dark400_light700 paragraph-semibold">
-                Bio <span className="text-primary-500">*</span>
+              <FormLabel className="font-semibold">
+                Bio <span className="text-rose-500">*</span>
               </FormLabel>
               <FormControl>
                 <Textarea
-                  className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
+                  className="min-h-[56px] border"
                   placeholder="What's special about you?"
                   {...field}
                 />
