@@ -8,7 +8,7 @@ import NoResult from '@/components/NoResult'
 
 const Page = async () => {
     const { userId } = auth();
-    console.log({ userId });
+    // console.log({ userId });
 
     if (!userId) return null;
 

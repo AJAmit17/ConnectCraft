@@ -15,7 +15,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
     const { userId: clerkId } = auth();
     const userInfo = await getUserInfo({ userId: params.id });
 
-    console.log(userInfo)
+    // console.log(userInfo)
 
     return (
         <>
@@ -32,7 +32,7 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
                         <h2 className="font-bold">
                             {userInfo?.user.name}
                         </h2>
-                        <p className="font-bold">
+                        <p className="">
                             @{userInfo?.user.username}
                         </p>
 

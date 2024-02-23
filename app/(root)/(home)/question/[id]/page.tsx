@@ -23,7 +23,7 @@ interface Props {
 const QuestionPage = async ({ question, questionId, authorId, params }:Props) => {
     const result = await getQuestionsById({ questionId: params.id });
 
-    console.log(result)
+    // console.log(result)
 
     const { userId: clerkId } = auth();
 
