@@ -17,20 +17,22 @@ import {
 import { Input } from "@/components/ui/input"
 import React, { useRef } from "react"
 import { Editor } from '@tinymce/tinymce-react';
-
 import dotenv from 'dotenv';
 import { Badge } from "../ui/badge"
 import Image from "next/image"
-import { createQuestion } from "@/actions/question.action"
+import { createQuestion, editQuestion } from "@/actions/question.action"
 import { useRouter, usePathname } from "next/navigation"
+
 dotenv.config();
 
 const type: any = "create";
 
 interface Props {
   monogoUserId: string;
+  type?: string;
+  questionDetails?: string;
 }
-const Questions = ({ monogoUserId }: Props) => {
+const Questions = ({ monogoUserId, type, questionDetails }: Props) => {
   const editorRef = useRef();
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -38,33 +40,51 @@ const Questions = ({ monogoUserId }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const parseQuestionDetails = questionDetails && JSON.parse(questionDetails || "");
+
+  // console.log(parseQuestionDetails);
+  const groupedTags = parseQuestionDetails?.tags?.map((tag: any) => tag.name);
+
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
-      tags: [],
+      title: parseQuestionDetails ? parseQuestionDetails.title || "" : "",
+      explanation: parseQuestionDetails
+        ? parseQuestionDetails.content || ""
+        : "",
+      tags: groupedTags || [],
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
+    // console.log(values);
+
     try {
-      // make a sync call to your API here -> creating a question
-      // contains all form data
+      if (type === "Edit") {
+        // navigate to home page
+        await editQuestion({
+          questionId: parseQuestionDetails._id,
+          title: values.title,
+          content: values.explanation,
+          path: pathname,
+        });
+        router.push(`/question/${parseQuestionDetails._id}`);
+      } else {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(monogoUserId),
+          path: pathname,
+        });
 
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(monogoUserId),
-        path: pathname,
-      });
-
-      //navigate to Homepage
-      router.push("/");
+        // navigate to home page
+        router.push("/");
+      }
     } catch (error) {
-      console.log("something error", error);
+      console.log(error);
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
@@ -138,11 +158,11 @@ const Questions = ({ monogoUserId }: Props) => {
                   apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
                   onInit={(evt, editor) => {
                     //@ts-ignore
-                    editorRef.current = editor
+                    editorRef.current = editor;
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue=""
+                  initialValue={parseQuestionDetails ? parseQuestionDetails.content || "" : ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -219,12 +239,12 @@ const Questions = ({ monogoUserId }: Props) => {
           {isSubmitting
             ? (
               <>
-                {type === "edit" ? "Editing..." : "Posting..."}
+                {type === "Edit" ? "Editing..." : "Posting..."}
               </>
             )
             : (
               <>
-                {type === "edit" ? "Edit Question" : "Ask a Question"}
+                {type === "Edit" ? "Edit Question" : "Ask a Question"}
               </>
             )}
         </Button>

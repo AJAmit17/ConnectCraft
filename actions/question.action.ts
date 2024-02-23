@@ -6,6 +6,8 @@ import { connectToDB } from "@/lib/mongoose";
 import {
   AnswerVoteParams,
   CreateQuestionParams,
+  DeleteQuestionParams,
+  EditQuestionParams,
   GetAnswersParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
@@ -14,6 +16,7 @@ import {
 import User from "@/Database/user.model";
 import Answer from "@/Database/answer.model";
 import { revalidatePath } from "next/cache";
+import Interaction from "@/Database/interaction.model";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -227,4 +230,47 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
     console.log(error);
     throw error;
   }
+}
+
+export async function deleteQuestion(params: DeleteQuestionParams) {
+  try {
+    connectToDB();
+
+    const { questionId, path } = params;
+
+    await Question.deleteOne({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } }
+    );
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function editQuestion(params: EditQuestionParams) {
+  try {
+    connectToDB();
+
+    const { questionId, title, content, path } = params;
+
+    const question = await Question.findById(questionId).populate("tags");
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    question.title = title;
+    question.content = content;
+
+    await question.save();
+
+    revalidatePath(path);
+  } catch (error) {}
 }
