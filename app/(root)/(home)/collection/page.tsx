@@ -15,6 +15,8 @@ const Page = async () => {
     const result = await getSavedQuestion({
         clerkId: userId,
     });
+
+    console.log(result);
     return (
         <>
             <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
@@ -32,10 +34,9 @@ const Page = async () => {
                     containerClasses="max-md:flex"
                 />
             </div>
-            {/* <HomeFilters /> */}
 
             <div className="mt-10 flex w-full flex-col gap-6">
-                {
+                {/* {
                     //  @ts-ignore
                     result.questions.length > 0 ? (
                         //  @ts-ignore
@@ -57,7 +58,9 @@ const Page = async () => {
                             title="No Saved Questions Found"
                             description="It appears that there are no saved questions in your collection at the moment 😔.Start exploring and saving questions that pique your interest 🌟" href={''} BtnHeading={''} />
                     )
-                }
+                } */}
+
+                saved questions
             </div>
         </>
     );

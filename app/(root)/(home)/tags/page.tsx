@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const CommunityPage = async () => {
     const result = await getAllTags({});
-
+    
     return (
         <>
             <h1 className="text-3xl font-bold">All Tags</h1>
