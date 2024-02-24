@@ -1,3 +1,4 @@
+import { SearchParamsProps } from '@/Types';
 import { getAllUser } from '@/actions/user.action';
 import UserCard from '@/components/cards/UserCard';
 import Filter from '@/components/search/filter'
@@ -5,8 +6,12 @@ import LocalSearch from '@/components/search/localSearch'
 import { UserFilters } from '@/constants/filter'
 import Link from 'next/link';
 
-const CommunityPage = async () => {
-  const result = await getAllUser({});
+const CommunityPage = async ({searchParams} : SearchParamsProps) => {
+  const result = await getAllUser({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+  });
 
   return (
     <>
@@ -14,7 +19,7 @@ const CommunityPage = async () => {
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearch
           route="/community"
-          iconPosition="left"
+          iconPosition="right"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for Amazing Minds"
           otherClasses="flex-1"

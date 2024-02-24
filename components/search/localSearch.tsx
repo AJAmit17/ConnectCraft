@@ -55,24 +55,37 @@ const LocalSearch = ({
     }, [route, search, pathname, router, searchParams, query]);
 
     return (
-        <div className={`bg-input flex min-h-[56px] grow items-center gap-4 rounded-lg px-4 ${otherClasses}`}>
-            {iconPosition === 'left' && (
-                <Image
-                    src={imgSrc}
-                    alt='Search Icon'
-                    width={24}
-                    height={24}
-                    className=' cursor-pointer'
-                />
-            )}
+        <>
+            <div className={`bg-input flex min-h-[56px] grow items-center gap-4 rounded-lg px-4 ${otherClasses}`}>
+                {iconPosition === 'left' && (
+                    <Image
+                        src={imgSrc}
+                        alt='Search Icon'
+                        width={28}
+                        height={28}
+                        className='cursor-pointer'
+                    />
+                )}
 
-            <Input
-                type='text'
-                placeholder={placeholder}
-                // onChange={() => {}}
-                className='no-focus flex-1 border-none shadow-none outline-none'
-            />
-        </div>
+                <Input
+                    type='text'
+                    // value={search}
+                    placeholder={placeholder}
+                    onChange={(e) => (e.target.value)}
+                    className='no-focus flex-1 border-none shadow-none outline-none'
+                />
+
+                {iconPosition === "right" && (
+                    <Image
+                        src="/assets/icons/search.svg"
+                        alt="seacrhIcon"
+                        width={28}
+                        height={28}
+                        className="cursor-pointer"
+                    />
+                )}
+            </div>
+        </>
     )
 }
 

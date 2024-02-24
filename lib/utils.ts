@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+import { BADGE_CRITERIA } from "@/constants/sidebarlinks";
+import { BadgeCounts } from "@/Types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -81,3 +83,46 @@ export function removeKeysFromQuery({
     { skipNull: true }
   );
 }
+
+
+interface BadgeParam {
+  criteria: { type: keyof typeof BADGE_CRITERIA; count: number }[];
+}
+export const assignBadges = (params: BadgeParam) => {
+  const badgeCounts: BadgeCounts = {
+    GOLD: 0,
+    SILVER: 0,
+    BRONZE: 0,
+  };
+
+  const { criteria } = params;
+
+  criteria.forEach((criterion) => {
+    const { type, count } = criterion;
+    const badgeLevels: any = BADGE_CRITERIA[type];
+
+    Object.keys(badgeLevels).forEach((level: any) => {
+      if (count >= badgeLevels[level]) {
+        badgeCounts[level as keyof BadgeCounts] += 1;
+      }
+    });
+  });
+
+  return badgeCounts;
+}; 
+
+
+export const formatAndDivideNumber = (number: number): string => {
+  if (number >= 1000000) {
+    // If the number is in millions (1,000,000 or more)
+    const millions = (number / 1000000).toFixed(2);
+    return `${millions}M`;
+  } else if (number >= 1000) {
+    // If the number is in thousands (1,000 or more)
+    const thousands = (number / 1000).toFixed(2);
+    return `${thousands}K`;
+  } else {
+    // If the number is less than 1,000, simply return the number as is
+    return `${number}`;
+  }
+};

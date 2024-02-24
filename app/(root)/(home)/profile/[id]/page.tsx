@@ -10,6 +10,7 @@ import QuestionTab from '@/components/QuestionTab';
 import AnswerTab from '@/components/AnswerTab';
 import ProfileLink from '@/components/ProfileLink';
 import { getJoinedDate } from '@/lib/utils';
+import Stats from '@/components/Stats';
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
     const { userId: clerkId } = auth();
@@ -82,6 +83,17 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
                     </SignedIn>
                 </div>
             </div>
+
+            <Stats
+                // reputation={userInfo?.reputation}
+                reputation={0}
+                // @ts-ignore
+                totalQuestions={userInfo?.totalQuestions}
+                // @ts-ignore
+                totalAnswers={userInfo?.totalAnswers}
+                // @ts-ignore
+                badges={userInfo?.badgeCounts}
+            />
 
             <div className="mt-10 flex gap-10">
                 <Tabs defaultValue="top-posts" className="flex-1">
