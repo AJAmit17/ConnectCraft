@@ -59,7 +59,7 @@ const QuestionCard = ({
                     )}
                 </SignedIn>
                 
-                {/* {type === "Collection" && (
+                {type === "Collection" && (
                     <Image
                         src="/assets/icons/star-filled.svg"
                         alt="star"
@@ -67,7 +67,7 @@ const QuestionCard = ({
                         height={18}
                         className="cursor-pointer"
                     />
-                )} */}
+                )}
             </div>
 
             <div>

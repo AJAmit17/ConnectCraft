@@ -8,15 +8,12 @@ import NoResult from '@/components/NoResult'
 
 const Page = async () => {
     const { userId } = auth();
-    // console.log({ userId });
 
     if (!userId) return null;
 
-    const result = await getSavedQuestion({
-        clerkId: userId,
-    });
+    const result = await getSavedQuestion({ clerkId: userId });
+    // console.log(result);
 
-    console.log(result);
     return (
         <>
             <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
@@ -36,32 +33,41 @@ const Page = async () => {
             </div>
 
             <div className="mt-10 flex w-full flex-col gap-6">
-                {/* {
-                    //  @ts-ignore
-                    result.questions.length > 0 ? (
-                        //  @ts-ignore
-                        result?.questions.map((item) => (
-                            <QuestionCard
-                                key={item._id}
-                                _id={item._id}
-                                title={item.title}
-                                tags={item.tags}
-                                author={item.author}
-                                upvotes={item.upvotes}
-                                answers={item.answers}
-                                views={item.views}
-                                createdAt={item.createdAt}
+                {
+                    result.questions.length > 0
+                        ? (
+                            //@ts-ignore
+                            result?.questions.map((item) => (
+                                <>
+                                    <QuestionCard
+                                        key={item._id}
+                                        _id={item._id}
+                                        title={item.title}
+                                        tags={item.tags}
+                                        author={item.author}
+                                        upvotes={item.upvotes}
+                                        answers={item.answers}
+                                        views={item.views}
+                                        createdAt={item.createdAt}
+                                        type='Collection'
+                                    />
+                                </>
+                            ))
+                        )
+                        : (
+                            <NoResult
+                                title="No Saved Questions Found"
+                                description="It appears that there are no saved questions in your collection at the moment 😔.Start exploring and saving questions that pique your interest 🌟"
+                                href="/"
+                                BtnHeading="Explore Questions"
                             />
-                        ))
-                    ) : (
-                        <NoResult
-                            title="No Saved Questions Found"
-                            description="It appears that there are no saved questions in your collection at the moment 😔.Start exploring and saving questions that pique your interest 🌟" href={''} BtnHeading={''} />
-                    )
-                } */}
-
-                saved questions
+                        )
+                }
             </div>
+
+            {/* <div className="mt-10 flex w-full flex-col gap-6">
+                
+            </div> */}
         </>
     );
 };

@@ -111,7 +111,7 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
     const { userId, questionId, path } = params;
 
     const user = await User.findById(userId);
-    
+
     if (!user) {
       throw new Error("User not found");
     }
@@ -143,62 +143,22 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
 
 export async function getSavedQuestion(params: GetSavedQuestionsParams) {
   try {
-    connectToDB();
+    await connectToDB(); // Connect to the database
 
-    const { clerkId, searchQuery, filter, page = 1, pageSize = 7 } = params;
+    const { clerkId } = params;
 
-    const query: FilterQuery<typeof Question> = {};
-
-    if (searchQuery) {
-      query.$or = [
-        { title: { $regex: new RegExp(searchQuery, "i") } },
-        { content: { $regex: new RegExp(searchQuery, "i") } },
-      ];
-    }
-
-    let sortOption = {};
-
-    switch (filter) {
-      case "most_recent":
-        sortOption = { createdAt: -1 };
-        break;
-      case "oldest":
-        sortOption = { createdAt: 1 };
-        break;
-      case "most_voted":
-        sortOption = { upvotes: -1 };
-        break;
-      case "most_viewed":
-        sortOption = { views: -1 };
-        break;
-      case "most_answered":
-        sortOption = { answers: -1 };
-        break;
-
-      default:
-        break;
-    }
-
-    // @ts-ignore
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
-      match: query,
-      populate: [
-        { path: "tags", model: Tag, select: "_id name" },
-        { path: "author", model: User, select: "_id clerkId name picture" },
-      ],
+      model: Question,
     });
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    const isNext = user.saved.length > pageSize;
-
     const savedQuestions = user.saved;
 
-
-    return { questions: savedQuestions, isNext };
+    return { questions: savedQuestions };
   } catch (error) {
     console.log(error);
     throw error;
@@ -208,7 +168,7 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
 export async function getUserInfo(params: GetUserByIdParams) {
   try {
     connectToDB();
-    
+
     const { userId } = params;
     const user = await User.findOne({ clerkId: userId });
 

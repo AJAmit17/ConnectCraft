@@ -5,8 +5,8 @@ import { Badge } from './ui/badge'
 interface TagProps {
     _id: number | string,
     name: string,
-    totalQuestions: number
-    showCount: boolean
+    totalQuestions?: number
+    showCount?: boolean
 }
 const Rendertags = ({
     _id,
