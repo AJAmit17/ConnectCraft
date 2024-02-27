@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
-import { BADGE_CRITERIA } from "@/constants/sidebarlinks";
 import { BadgeCounts } from "@/Types";
 
 export function cn(...inputs: ClassValue[]) {
@@ -83,34 +82,6 @@ export function removeKeysFromQuery({
     { skipNull: true }
   );
 }
-
-
-interface BadgeParam {
-  criteria: { type: keyof typeof BADGE_CRITERIA; count: number }[];
-}
-export const assignBadges = (params: BadgeParam) => {
-  const badgeCounts: BadgeCounts = {
-    GOLD: 0,
-    SILVER: 0,
-    BRONZE: 0,
-  };
-
-  const { criteria } = params;
-
-  criteria.forEach((criterion) => {
-    const { type, count } = criterion;
-    const badgeLevels: any = BADGE_CRITERIA[type];
-
-    Object.keys(badgeLevels).forEach((level: any) => {
-      if (count >= badgeLevels[level]) {
-        badgeCounts[level as keyof BadgeCounts] += 1;
-      }
-    });
-  });
-
-  return badgeCounts;
-}; 
-
 
 export const formatAndDivideNumber = (number: number): string => {
   if (number >= 1000000) {

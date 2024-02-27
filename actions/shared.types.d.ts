@@ -3,8 +3,8 @@ import { IUser } from "@/mongodb";
 
 export interface CreateAnswerParams {
   content: string;
-  author: string; 
-  question: string; 
+  author: string;
+  question: string;
   path: string;
 }
 
@@ -155,4 +155,20 @@ export interface GetUserStatsParams {
 
 export interface DeleteUserParams {
   clerkId: string;
+}
+
+export interface GetExperimentParams {
+  year: number;
+  aceYear: string;
+  Branch: string;
+  CCode: string;
+  CName: string;
+  ExpNo: number;
+  ExpName: string;
+  ExpDesc: string;
+  ExpSoln: string;
+}
+
+export interface GetExperimentByIdParams {
+  experimentId: string;
 }
