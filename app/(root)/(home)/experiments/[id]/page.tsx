@@ -1,35 +1,59 @@
 import { getExperimentById } from "@/actions/experiment.action";
 import ParseHtml from "@/components/parseHTML";
+import { Separator } from "@/components/ui/separator";
 
 //@ts-ignore
-const Page = async ({params}) => {
+const Page = async ({ params }) => {
   const result = await getExperimentById({ experimentId: params.id })
 
-  // console.log(result);
   return (
     <>
       <div className='flex items-center justify-center flex-col w-full'>
-        <div>
-          <h2>year</h2>
-          <h2>aceYear</h2>
-          <h2>Branch</h2>
-          <h2>CCode</h2>
-          <h2>CName</h2>
+        <div className="flex items-center justify-between w-full">
+          <h2 className='text-3xl font-semibold mt-3.5'>
+            <span className="mx-1">{result.ExpNo}.</span>{result.ExpName}
+          </h2>
+          |
+          <h2>
+            {result.aceYear}
+          </h2>
+          |
+          <h2>
+            {result.year}
+          </h2>
+          |
+          <h2>
+            {result.CCode}
+          </h2>
+          |
+          <h2>
+            {result.CName}
+          </h2>
         </div>
-        <h2 className='font-semibold mt-3.5 w-full text-left'>
-          {/* ExpNo */}
-          {/* title */}
-        </h2>
       </div>
 
+      <Separator className="my-10" orientation="horizontal" />
+
       {/* description */}
-      <ParseHtml
-        data={''}     //content
-      />
+      <div className="mt-6">
+        <h1 className="text-2xl font-semibold mb-6">
+          Description:
+        </h1>
+        <ParseHtml
+          data={result.ExpDesc}     //content
+        />
+      </div>
+
+      <Separator className="my-10" orientation="horizontal" />
 
       {/* solution */}
+      <div className="mt-6">
+        <h1 className="text-2xl font-semibold mb-6">
+          Solution:
+        </h1>
+      </div>
       <ParseHtml
-        data={''}     //content
+        data={result.ExpSoln}     //content
       />
     </>
   )

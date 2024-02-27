@@ -60,7 +60,7 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
 
     const experiment = await Experiment.findById(experimentId);
 
-    return { experiment };
+    return  experiment ;
   } catch (error) {
     console.log(error);
     throw error;

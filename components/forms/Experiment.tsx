@@ -32,7 +32,7 @@ export default function ExperimentForm() {
     const form = useForm<z.infer<typeof ExperimentSchema>>({
         resolver: zodResolver(ExperimentSchema),
         defaultValues: {
-            year: 2024,
+            year: 0,
             aceYear: "",
             Branch: "",
             CCode: "",
@@ -72,13 +72,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className=" text-sm">
-                                Year Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Year<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
-                                <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
+                                <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" type="number" />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Year in Number i.e., 1/2/3/4
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -91,13 +91,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Academic Year<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Academic Year i.e., 2023-2024
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -110,13 +110,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Branch<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Branch i.e., CSE/ISE/CSE-DS etc.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -129,13 +129,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Course Code<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Course Code i.e., 22CDL32 etc.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -148,13 +148,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Course Name<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Course Name i.e., ADS/DBMS etc.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -167,17 +167,16 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Experiment Number<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input
                                     className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
                                     type="number"
-                                    {...field}
                                 />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Experiment Number i.e., 1/2/3/4 etc.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -190,13 +189,13 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Experiment Name/Title<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" {...field} />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Experiment Name i.e., Quries on Movie DB ,etc.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -209,7 +208,7 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Experiment Description<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Textarea
@@ -219,7 +218,7 @@ export default function ExperimentForm() {
                                 />
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Enter Description of the Experiment.
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>
@@ -232,7 +231,7 @@ export default function ExperimentForm() {
                     render={({ field }) => (
                         <FormItem className="flex flex-col w-full gap-3">
                             <FormLabel className="text-sm">
-                                AceYear Title<span className="ml-1 font-bold text-destructive">*</span>
+                                Experiment Solution<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Editor
@@ -264,7 +263,7 @@ export default function ExperimentForm() {
                                 </Editor>
                             </FormControl>
                             <FormDescription className="mt-2.5">
-                                Be Specific and Imagine you&apos;re asking a question to another person.
+                                Upload all the Text and Code Solution of the Experiment
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
                         </FormItem>

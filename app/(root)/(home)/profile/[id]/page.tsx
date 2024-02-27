@@ -16,8 +16,6 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
     const { userId: clerkId } = auth();
     const userInfo = await getUserInfo({ userId: params.id });
 
-    // console.log(userInfo)
-
     return (
         <>
             <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
@@ -85,14 +83,10 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             </div>
 
             <Stats
-                // reputation={userInfo?.reputation}
-                reputation={0}
                 // @ts-ignore
                 totalQuestions={userInfo?.totalQuestions}
                 // @ts-ignore
                 totalAnswers={userInfo?.totalAnswers}
-                // @ts-ignore
-                badges={userInfo?.badgeCounts}
             />
 
             <div className="mt-10 flex gap-10">

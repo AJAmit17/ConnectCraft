@@ -37,31 +37,31 @@ const ExprimentCard = ({
             </div>
 
             <div className='flex items-center justify-between mt-6 w-full flex-wrap gap-3'>
-                <Badge className='px-4 py-2'>
+                <Badge className='px-4 py-2 bg-violet-700 text-white'>
                     <span className='font-bold mr-1'>
                         Year:
                     </span>
                     {year}
                 </Badge>
-                <Badge className='px-4 py-2'>
+                <Badge className='px-4 py-2 bg-violet-700 text-white'>
                     <span className='font-bold mr-1'>
                         Branch:
                     </span>
                     {Branch}
                 </Badge>
-                <Badge className='px-4 py-2'>
+                <Badge className='px-4 py-2 bg-violet-700 text-white'>
                     <span className='font-bold mr-1'>
                         AY:
                     </span>
                     {aceYear}
                 </Badge>
-                <Badge className='px-4 py-2'>
+                <Badge className='px-4 py-2 bg-violet-700 text-white'>
                     <span className='font-bold mr-1'>
                         CourseCode:
                     </span>
                     {CCode}
                 </Badge>
-                <Badge className='px-4 py-2'>
+                <Badge className='px-4 py-2 bg-violet-700 text-white'>
                     <span className='font-bold mr-1'>
                         CourseName:
                     </span>
