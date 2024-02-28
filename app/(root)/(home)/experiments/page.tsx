@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "NHCE CSE-DS Lab Experiments | ConnectCraft",
+  description : "NO need to Find PDFs of Lab Manual, One Stop destination for all Lab Experiments."
 };
 
 const Page = async () => {

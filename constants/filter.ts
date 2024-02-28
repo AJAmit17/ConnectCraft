@@ -34,3 +34,8 @@ export const GlobalSearchFilters = [
   { name: "User", value: "user" },
   { name: "Tag", value: "tag" },
 ];
+export const CourseSearchFilter = [
+  { name: "ADS", value: "22CDL32" },
+  { name: "DBMS", value: "22CDL33" },
+  { name: "Python", value: "22CDL351" },
+]

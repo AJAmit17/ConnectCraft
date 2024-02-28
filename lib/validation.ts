@@ -23,12 +23,12 @@ export const AnswerSchema = z.object({
 
 
 export const ExperimentSchema = z.object({
-  year: z.number(),
+  year: z.number().min(1).int(),
   aceYear: z.string(),
   Branch: z.string(),
   CCode: z.string().min(7).max(8),
   CName: z.string(),
-  ExpNo: z.number(),
+  ExpNo: z.number().min(1).max(2).int(),
   ExpName: z.string(),
   ExpDesc: z.string(),
   ExpSoln: z.string(),

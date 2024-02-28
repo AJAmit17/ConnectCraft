@@ -176,3 +176,7 @@ export interface GetExperimentByIdParams {
 export interface GetTagByIdParams {
   tagId: string;
 }
+
+export interface getExpByCCode{
+  CCode: string;
+}

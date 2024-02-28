@@ -12,7 +12,8 @@ export default authMiddleware({
     "/tags/:id",
     "/profile/:id",
     "/community",
-    "/jobs"
+    "/experiments",
+    "/experiments/:id"
   ],
   ignoredRoutes: [
     "/api/webhook",

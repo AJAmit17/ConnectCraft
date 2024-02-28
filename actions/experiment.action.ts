@@ -2,7 +2,7 @@
 
 import Experiment from "@/Database/experiment.model";
 import { connectToDB } from "@/lib/mongoose";
-import { GetExperimentByIdParams, GetExperimentParams } from "./shared.types";
+import { GetExperimentByIdParams, GetExperimentParams, getExpByCCode } from "./shared.types";
 
 export async function getAllExperiment() {
   try {
@@ -61,6 +61,21 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
     const experiment = await Experiment.findById(experimentId);
 
     return  experiment ;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getExpeimentsByCCode(params : getExpByCCode) {
+  try {
+    await connectToDB();
+
+    const { CCode } = params;
+
+    const experiment = await Experiment.find({ CCode });
+
+    return  { experiment } ;
   } catch (error) {
     console.log(error);
     throw error;
