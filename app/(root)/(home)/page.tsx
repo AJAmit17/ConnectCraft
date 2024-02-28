@@ -11,6 +11,7 @@ import { HomePageFilters } from "@/constants/filter";
 import Link from "next/link";
 
 import type { Metadata } from "next";
+import { auth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Home | ConnectCraft",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 
 
 export default async function Home() {
+  const { userId: clerkId } = auth();
   const result = await getQuestions({});
 
   return (
@@ -53,12 +55,14 @@ export default async function Home() {
             <QuestionCard
               key={item._id}
               _id={item._id}
+              //@ts-ignore
+              clerkId={clerkId}
               title={item.title}
               tags={item.tags}
               author={item.author}
               upvotes={item.upvotes}
               views={item.views}
-              answers={item.answers.map((answer: any) => ({ id: answer, text: '' }))}
+              answers={item.answers}
               createdAt={item.createdAt}
             />
           ))

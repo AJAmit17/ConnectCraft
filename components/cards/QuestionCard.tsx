@@ -15,6 +15,7 @@ interface QCProps {
         name: string
     }[];
     author: {
+        clerkId: any;
         _id: number,
         name: string,
         picture: string
@@ -89,7 +90,7 @@ const QuestionCard = ({
                     imgUrl={author.picture}
                     alt="User"
                     value={author.name}
-                    href={`/profile/${author._id}`}
+                    href={`/profile/${author.clerkId}`}
                     isAuthor
                     title={formatTimeAgo(createdAt.getTime())}
                 />
