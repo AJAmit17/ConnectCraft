@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "ConnectCraft",
   description: "A App for CSE-DS Students",
   icons: {
-    icon: '/assets/images/site-logo.svg'
+    icon: "https://cdn-icons-png.flaticon.com/128/11738/11738792.png"
   }
 };
 

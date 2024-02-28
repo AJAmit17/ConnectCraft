@@ -1,9 +1,22 @@
 import { URLProps } from '@/Types'
-import { getQuestionsByTagId } from '@/actions/tag.action';
+import { getQuestionsByTagId, getTagById } from '@/actions/tag.action';
 import NoResult from '@/components/NoResult';
 import QuestionCard from '@/components/cards/QuestionCard';
 import LocalSearch from '@/components/search/localSearch';
+import { Metadata } from 'next';
 import React from 'react'
+
+export async function generateMetadata({
+    params,
+  }: Omit<URLProps, "searchParams">): Promise<Metadata> {
+    const tag = await getTagById({ tagId: params.id });
+  
+    return {
+      title: `Posts by tag '${tag.name}' | DevOverflow`,
+      description: tag.description || `Questions tagged with ${tag.name}`,
+    };
+  }
+  
 
 const Page = async({ params, searchParams }: URLProps) => {
 

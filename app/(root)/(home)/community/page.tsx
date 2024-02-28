@@ -6,7 +6,13 @@ import LocalSearch from '@/components/search/localSearch'
 import { UserFilters } from '@/constants/filter'
 import Link from 'next/link';
 
-const CommunityPage = async ({searchParams} : SearchParamsProps) => {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Community | DevOverflow",
+};
+
+const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUser({
     searchQuery: searchParams.q,
     filter: searchParams.filter,

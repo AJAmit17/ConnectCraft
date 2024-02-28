@@ -6,6 +6,12 @@ import LocalSearch from '@/components/search/localSearch'
 import { TagFilters } from '@/constants/filter'
 import Link from 'next/link';
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tags | ConnectCraft",
+};
+
 const CommunityPage = async () => {
     const result = await getAllTags({});
     

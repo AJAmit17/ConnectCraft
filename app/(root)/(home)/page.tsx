@@ -10,6 +10,13 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filter";
 import Link from "next/link";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | ConnectCraft",
+};
+
+
 export default async function Home() {
   const result = await getQuestions({});
 

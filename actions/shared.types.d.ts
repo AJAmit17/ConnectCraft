@@ -172,3 +172,7 @@ export interface GetExperimentParams {
 export interface GetExperimentByIdParams {
   experimentId: string;
 }
+
+export interface GetTagByIdParams {
+  tagId: string;
+}

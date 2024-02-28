@@ -4,6 +4,11 @@ import ExprimentCard from '@/components/cards/ExprimentCard'
 import LocalSearch from '@/components/search/localSearch'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "NHCE CSE-DS Lab Experiments | ConnectCraft",
+};
 
 const Page = async () => {
     //@ts-ignore
@@ -14,7 +19,7 @@ const Page = async () => {
     return (
         <>
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
-                <h1 className="text-3xl font-bold">NHCE CSE-DS Experiments</h1>
+                <h1 className="text-3xl font-bold">NHCE CSE-DS Lab Experiments</h1>
             </div>
             <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
                 <LocalSearch

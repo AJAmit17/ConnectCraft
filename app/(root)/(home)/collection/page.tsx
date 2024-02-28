@@ -6,6 +6,12 @@ import { auth } from "@clerk/nextjs"
 import QuestionCard from '@/components/cards/QuestionCard'
 import NoResult from '@/components/NoResult'
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Collections | ConnectCraft",
+};
+
 const Page = async () => {
     const { userId } = auth();
 

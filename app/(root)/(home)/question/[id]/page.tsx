@@ -1,3 +1,4 @@
+import { URLProps } from '@/Types';
 import { getAnswers } from '@/actions/answer.action';
 import { getQuestionsById } from '@/actions/question.action'
 import { getUserById } from '@/actions/user.action';
@@ -9,14 +10,25 @@ import Matric from '@/components/matric';
 import ParseHtml from '@/components/parseHTML';
 import { formatTimeAgo } from '@/lib/utils';
 import { auth } from '@clerk/nextjs';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
+export async function generateMetadata({
+    params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+    const question = await getQuestionsById({ questionId: params.id });
+
+    return {
+        title: `${question.title} | ConnectCraft`,
+    };
+}
+
 //@ts-ignore
 const QuestionPage = async ({ searchParams, params }) => {
     const result = await getQuestionsById({ questionId: params.id });
-    if(!result) return null;
+    if (!result) return null;
     // console.log(result)
 
     const { userId: clerkId } = auth();

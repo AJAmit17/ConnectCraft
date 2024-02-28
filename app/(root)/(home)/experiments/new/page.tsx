@@ -3,10 +3,14 @@ import ExperimentForm from "@/components/forms/Experiment";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Add Lab Experiment | ConnectCraft",
+};
+
 export default async function Home() {
-
   const { userId } = auth();
-
   if (!userId) redirect('/sign-in');
 
   const mongoUser = await getUserById({ userId });

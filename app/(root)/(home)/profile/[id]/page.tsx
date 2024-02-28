@@ -1,5 +1,5 @@
 import { URLProps } from '@/Types';
-import { getUserInfo } from '@/actions/user.action';
+import { getUserById, getUserInfo } from '@/actions/user.action';
 import { SignedIn, auth } from '@clerk/nextjs';
 import React from 'react'
 import Image from 'next/image';
@@ -11,6 +11,18 @@ import AnswerTab from '@/components/AnswerTab';
 import ProfileLink from '@/components/ProfileLink';
 import { getJoinedDate } from '@/lib/utils';
 import Stats from '@/components/Stats';
+import { Metadata } from 'next';
+
+
+export async function generateMetadata({
+    params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+    const user = await getUserById({ userId: params.id });
+
+    return {
+        title: `${user.username}'s Profile | ConnectCraft`,
+    };
+}
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
     const { userId: clerkId } = auth();

@@ -1,6 +1,18 @@
+import { URLProps } from "@/Types";
 import { getExperimentById } from "@/actions/experiment.action";
 import ParseHtml from "@/components/parseHTML";
 import { Separator } from "@/components/ui/separator";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+  const experiment = await getExperimentById({ experimentId: params.id });
+
+  return {
+      title: `${experiment.ExpName} | ConnectCraft`,
+  };
+}
 
 //@ts-ignore
 const Page = async ({ params }) => {
