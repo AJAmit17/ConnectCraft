@@ -12,15 +12,19 @@ import Link from "next/link";
 
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
+import { SearchParamsProps } from "@/Types";
 
 export const metadata: Metadata = {
   title: "Home | ConnectCraft",
 };
 
-
-export default async function Home() {
+export default async function Home({
+  searchParams
+}: SearchParamsProps) {
   const { userId: clerkId } = auth();
-  const result = await getQuestions({});
+  const result = await getQuestions({
+    searchQuery: searchParams.q,
+  });
 
   return (
     <>

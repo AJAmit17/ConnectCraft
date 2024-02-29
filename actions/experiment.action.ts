@@ -2,15 +2,36 @@
 
 import Experiment from "@/Database/experiment.model";
 import { connectToDB } from "@/lib/mongoose";
-import { GetExperimentByIdParams, GetExperimentParams, getExpByCCode } from "./shared.types";
+import {
+  GetExperimentByIdParams,
+  GetExperimentParams,
+  getExpByCCode,
+} from "./shared.types";
+import { FilterQuery } from "mongoose";
 
-export async function getAllExperiment() {
+export async function getAllExperiment(params: GetExperimentParams) {
   try {
     await connectToDB();
 
-    const experiments = await Experiment.find({});
+    const { searchQuery } = params;
 
-    return { experiments};
+    const query: FilterQuery<typeof Experiment> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { aceYear: { $regex: new RegExp(searchQuery, "i") } },
+        { Branch: { $regex: new RegExp(searchQuery, "i") } },
+        { CCode: { $regex: new RegExp(searchQuery, "i") } },
+        { CName: { $regex: new RegExp(searchQuery, "i") } },
+        { ExpName: { $regex: new RegExp(searchQuery, "i") } },
+        { ExpDesc: { $regex: new RegExp(searchQuery, "i") } },
+        { ExpSoln: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const experiments = await Experiment.find(query);
+
+    return { experiments };
   } catch (error) {
     console.log(error);
     throw error;
@@ -60,14 +81,14 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
 
     const experiment = await Experiment.findById(experimentId);
 
-    return  experiment ;
+    return experiment;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
 
-export async function getExpeimentsByCCode(params : getExpByCCode) {
+export async function getExpeimentsByCCode(params: getExpByCCode) {
   try {
     await connectToDB();
 
@@ -75,7 +96,7 @@ export async function getExpeimentsByCCode(params : getExpByCCode) {
 
     const experiment = await Experiment.find({ CCode });
 
-    return  { experiment } ;
+    return { experiment };
   } catch (error) {
     console.log(error);
     throw error;

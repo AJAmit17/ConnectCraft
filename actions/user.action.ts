@@ -93,9 +93,18 @@ export async function getAllUser(params: GetAllUsersParams) {
   try {
     connectToDB();
 
-    // const { page = 1, pageSize = 10, filter, searchQuery } = params;
+    const { page = 1, pageSize = 10, filter, searchQuery } = params;
 
-    const user = await User.find({}).sort({ createdAt: -1 });
+    const query: FilterQuery<typeof User> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { name: { $regex: new RegExp(searchQuery, "i") } },
+        { username: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const user = await User.find(query).sort({ createdAt: -1 });
 
     return { user };
   } catch (error) {
@@ -143,12 +152,22 @@ export async function toggleSave(params: ToggleSaveQuestionParams) {
 
 export async function getSavedQuestion(params: GetSavedQuestionsParams) {
   try {
-    await connectToDB(); // Connect to the database
+    await connectToDB();
 
-    const { clerkId } = params;
+    const { clerkId, searchQuery, filter, page = 1, pageSize = 7 } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
 
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
+      match: query,
       model: Question,
     });
 

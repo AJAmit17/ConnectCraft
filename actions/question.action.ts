@@ -17,12 +17,24 @@ import User from "@/Database/user.model";
 import Answer from "@/Database/answer.model";
 import { revalidatePath } from "next/cache";
 import Interaction from "@/Database/interaction.model";
+import { FilterQuery } from "mongoose";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDB();
 
-    const questions = await Question.find({})
+    const { searchQuery, filter, page = 1, pageSize = 9 } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.$or = [
+        { title: { $regex: new RegExp(searchQuery, "i") } },
+        { content: { $regex: new RegExp(searchQuery, "i") } },
+      ];
+    }
+
+    const questions = await Question.find(query)
       .populate({
         path: "tags",
         model: Tag,
@@ -30,6 +42,9 @@ export async function getQuestions(params: GetQuestionsParams) {
       .populate({
         path: "author",
         model: User,
+      })
+      .sort({
+        createdAt: -1 
       });
 
     return { questions };

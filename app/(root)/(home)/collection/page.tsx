@@ -7,17 +7,21 @@ import QuestionCard from '@/components/cards/QuestionCard'
 import NoResult from '@/components/NoResult'
 
 import type { Metadata } from "next";
+import { SearchParamsProps } from '@/Types'
 
 export const metadata: Metadata = {
   title: "Collections | ConnectCraft",
 };
 
-const Page = async () => {
+const Page = async ({ searchParams }: SearchParamsProps) => {
     const { userId } = auth();
 
     if (!userId) return null;
 
-    const result = await getSavedQuestion({ clerkId: userId });
+    const result = await getSavedQuestion({ 
+        clerkId: userId,
+        searchQuery: searchParams.q,
+     });
     // console.log(result);
 
     return (

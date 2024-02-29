@@ -5,15 +5,20 @@ import LocalSearch from '@/components/search/localSearch'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import type { Metadata } from "next";
+import { SearchParamsProps } from '@/Types'
 
 export const metadata: Metadata = {
-  title: "NHCE CSE-DS Lab Experiments | ConnectCraft",
-  description : "NO need to Find PDFs of Lab Manual, One Stop destination for all Lab Experiments."
+    title: "NHCE CSE-DS Lab Experiments | ConnectCraft",
+    description: "NO need to Find PDFs of Lab Manual, One Stop destination for all Lab Experiments."
 };
 
-const Page = async () => {
+const Page = async ({
+    searchParams
+}: SearchParamsProps) => {
     //@ts-ignore
-    const result = await getAllExperiment({});
+    const result = await getAllExperiment({
+        searchQuery: searchParams.q
+    });
 
     // console.log(result);
 

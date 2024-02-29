@@ -7,14 +7,17 @@ import { TagFilters } from '@/constants/filter'
 import Link from 'next/link';
 
 import type { Metadata } from "next";
+import { SearchParamsProps } from '@/Types';
 
 export const metadata: Metadata = {
-  title: "Tags | ConnectCraft",
+    title: "Tags | ConnectCraft",
 };
 
-const CommunityPage = async () => {
-    const result = await getAllTags({});
-    
+const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
+    const result = await getAllTags({
+        searchQuery: searchParams.q,
+    });
+
     return (
         <>
             <h1 className="text-3xl font-bold">All Tags</h1>
@@ -39,7 +42,7 @@ const CommunityPage = async () => {
                         <Link
                             key={tag._id}
                             href={`/tags/${tag._id}`}
-                            // className="w-1/2 max-sm:w-full cursor-pointer"
+                        // className="w-1/2 max-sm:w-full cursor-pointer"
                         >
                             <article className='flex w-full flex-col rounded-2xl border px-8 py-10 sm:w-[260px]'>
                                 <div className='w-fit rounded-md px-5 py-[8px]'>

@@ -15,8 +15,6 @@ export const metadata: Metadata = {
 const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUser({
     searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (

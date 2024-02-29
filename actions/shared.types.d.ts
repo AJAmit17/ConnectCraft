@@ -167,6 +167,7 @@ export interface GetExperimentParams {
   ExpName: string;
   ExpDesc: string;
   ExpSoln: string;
+  searchQuery? : string;
 }
 
 export interface GetExperimentByIdParams {

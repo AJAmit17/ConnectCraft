@@ -37,7 +37,15 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDB();
 
-    const tags = await Tag.find({ questions: { $not: { $size: 0 } } });
+    const { searchQuery, filter, page = 1, pageSize = 10 } = params;
+
+    const query: FilterQuery<typeof Tag> = {};
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+    }
+
+    const tags = await Tag.find({ questions: { $not: { $size: 0 } } },query);
 
     return { tags };
   } catch (error) {

@@ -27,6 +27,8 @@ const LocalSearch = ({
 
     const query = searchParams.get("q");
 
+    console.log(query)
+
     const [search, setSearch] = useState(query || "");
 
     useEffect(() => {
@@ -69,9 +71,9 @@ const LocalSearch = ({
 
                 <Input
                     type='text'
-                    // value={search}
+                    value={search}
                     placeholder={placeholder}
-                    onChange={(e) => (e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)}
                     className='no-focus flex-1 border-none shadow-none outline-none'
                 />
 
