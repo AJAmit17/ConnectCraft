@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 import type { Metadata } from "next";
 import { SearchParamsProps } from '@/Types';
+import Pagination from '@/components/pagination';
 
 export const metadata: Metadata = {
     title: "Tags | ConnectCraft",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
     const result = await getAllTags({
         searchQuery: searchParams.q,
+        page: searchParams.page ? +searchParams.page : 1,
     });
 
     return (
@@ -60,6 +62,10 @@ const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
                     )
                 }
             </section>
+            <div className="mb-2 mt-8">
+                <Pagination isNext={result.isNext} pageNumber={0}                    
+                />
+            </div>
         </>
     )
 }

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import type { Metadata } from "next";
 import { SearchParamsProps } from '@/Types'
+import Pagination from '@/components/pagination'
 
 export const metadata: Metadata = {
     title: "NHCE CSE-DS Lab Experiments | ConnectCraft",
@@ -17,7 +18,8 @@ const Page = async ({
 }: SearchParamsProps) => {
     //@ts-ignore
     const result = await getAllExperiment({
-        searchQuery: searchParams.q
+        searchQuery: searchParams.q,
+        page: searchParams.page ? +searchParams.page : 1,
     });
 
     // console.log(result);
@@ -63,6 +65,14 @@ const Page = async ({
                         />
                 }
             </div>
+
+            <div className="mb-4 mt-10">
+                <Pagination
+                    pageNumber={searchParams?.page ? +searchParams.page : 1}
+                    isNext={result?.isNext}
+                />
+            </div>
+
             <div className='flex items-center justify-center mt-6'>
                 <Button className="bg-violet-700 min-h-[46px] px-4 py-3 text-white">
                     <Link href="/experiments/new">

@@ -23,7 +23,9 @@ export async function getQuestions(params: GetQuestionsParams) {
   try {
     connectToDB();
 
-    const { searchQuery, filter, page = 1, pageSize = 9 } = params;
+    const { searchQuery, filter, page = 1, pageSize = 8 } = params;
+
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Question> = {};
 
@@ -43,11 +45,17 @@ export async function getQuestions(params: GetQuestionsParams) {
         path: "author",
         model: User,
       })
+      .skip(skipAmount)
+      .limit(pageSize)
       .sort({
-        createdAt: -1 
+        createdAt: -1,
       });
 
-    return { questions };
+    const totalQuestions = await Question.countDocuments(query);
+
+    const isNext = totalQuestions > skipAmount + questions.length;
+
+    return { questions, isNext };
   } catch (error) {
     console.log(error);
     throw error;
@@ -265,8 +273,7 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
     await Question.deleteOne({ _id: questionId });
     await Answer.deleteMany({ question: questionId });
     await Interaction.deleteMany({ question: questionId });
-
-    await Tag.updateMany(
+    await Tag.deleteMany(
       { questions: questionId },
       { $pull: { questions: questionId } }
     );

@@ -16,6 +16,7 @@ import {
 import { revalidatePath } from "next/cache";
 import Question from "@/Database/question.model";
 import Answer from "@/Database/answer.model";
+import Tag from "@/Database/tag.model";
 
 export async function getUserById(params: any) {
   try {
@@ -90,7 +91,9 @@ export async function getAllUser(params: GetAllUsersParams) {
   try {
     connectToDB();
 
-    const { page = 1, pageSize = 10, filter, searchQuery } = params;
+    const { page = 1, pageSize = 4, filter, searchQuery } = params;
+
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof User> = {};
 
@@ -101,9 +104,13 @@ export async function getAllUser(params: GetAllUsersParams) {
       ];
     }
 
-    const user = await User.find(query).sort({ createdAt: -1 });
+    const user = await User.find(query).skip(skipAmount).limit(pageSize);
 
-    return { user };
+    const totalUsers = await User.countDocuments(query);
+
+    const isNext = totalUsers > skipAmount + user.length;
+
+    return { user, isNext };
   } catch (error) {
     console.log(error);
     throw error;
@@ -153,6 +160,8 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
 
     const { clerkId, searchQuery, filter, page = 1, pageSize = 7 } = params;
 
+    const skipAmount = (page - 1) * pageSize;
+
     const query: FilterQuery<typeof Question> = {};
 
     if (searchQuery) {
@@ -166,15 +175,21 @@ export async function getSavedQuestion(params: GetSavedQuestionsParams) {
       path: "saved",
       match: query,
       model: Question,
+      populate: [
+        { path: "author", model: User },
+        { path: "tags", model: Tag },
+      ],
     });
 
     if (!user) {
       throw new Error("User not found");
     }
 
+    const isNext = user.saved.length > pageSize;
+
     const savedQuestions = user.saved;
 
-    return { questions: savedQuestions };
+    return { questions: savedQuestions, isNext };
   } catch (error) {
     console.log(error);
     throw error;

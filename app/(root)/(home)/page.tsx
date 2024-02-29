@@ -13,6 +13,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
 import { SearchParamsProps } from "@/Types";
+import Pagination from "@/components/pagination";
 
 export const metadata: Metadata = {
   title: "Home | ConnectCraft",
@@ -24,6 +25,7 @@ export default async function Home({
   const { userId: clerkId } = auth();
   const result = await getQuestions({
     searchQuery: searchParams.q,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (
@@ -77,6 +79,11 @@ export default async function Home({
             BtnHeading="Ask a Question"
           />
         }
+      </div>
+
+      <div className="mb-4 mt-10">
+        <Pagination isNext={false} pageNumber={0}          
+        />
       </div>
     </>
   );

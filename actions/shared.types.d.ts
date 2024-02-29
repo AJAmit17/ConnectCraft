@@ -168,6 +168,8 @@ export interface GetExperimentParams {
   ExpDesc: string;
   ExpSoln: string;
   searchQuery? : string;
+  page?: number;
+  pageSize?: number;
 }
 
 export interface GetExperimentByIdParams {

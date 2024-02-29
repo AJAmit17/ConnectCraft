@@ -7,6 +7,7 @@ import { UserFilters } from '@/constants/filter'
 import Link from 'next/link';
 
 import type { Metadata } from "next";
+import Pagination from '@/components/pagination';
 
 export const metadata: Metadata = {
   title: "Community | ConnectCraft",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUser({
     searchQuery: searchParams.q,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (
@@ -55,6 +57,12 @@ const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
           )
         }
       </section>
+      <div className="mb-2 mt-8">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result?.isNext}
+        />
+      </div>
     </>
   )
 }

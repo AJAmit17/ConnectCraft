@@ -13,7 +13,9 @@ export async function getAllExperiment(params: GetExperimentParams) {
   try {
     await connectToDB();
 
-    const { searchQuery } = params;
+    const { searchQuery, page = 1, pageSize = 8 } = params;
+
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Experiment> = {};
 
@@ -29,9 +31,16 @@ export async function getAllExperiment(params: GetExperimentParams) {
       ];
     }
 
-    const experiments = await Experiment.find(query);
+    const experiments = await Experiment.find(query)
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort({ createdAt: -1 });
 
-    return { experiments };
+    const totalExperiment = await Experiment.countDocuments(query);
+
+    const isNext = totalExperiment > skipAmount + experiments.length;
+
+    return { experiments, isNext };
   } catch (error) {
     console.log(error);
     throw error;
@@ -82,21 +91,6 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
     const experiment = await Experiment.findById(experimentId);
 
     return experiment;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function getExpeimentsByCCode(params: getExpByCCode) {
-  try {
-    await connectToDB();
-
-    const { CCode } = params;
-
-    const experiment = await Experiment.find({ CCode });
-
-    return { experiment };
   } catch (error) {
     console.log(error);
     throw error;

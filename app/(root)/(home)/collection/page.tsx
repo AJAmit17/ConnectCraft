@@ -8,9 +8,10 @@ import NoResult from '@/components/NoResult'
 
 import type { Metadata } from "next";
 import { SearchParamsProps } from '@/Types'
+import Pagination from '@/components/pagination'
 
 export const metadata: Metadata = {
-  title: "Collections | ConnectCraft",
+    title: "Collections | ConnectCraft",
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
@@ -18,10 +19,11 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
     if (!userId) return null;
 
-    const result = await getSavedQuestion({ 
+    const result = await getSavedQuestion({
         clerkId: userId,
         searchQuery: searchParams.q,
-     });
+        page: searchParams.page ? +searchParams.page : 1,
+    });
     // console.log(result);
 
     return (
@@ -74,10 +76,12 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                         )
                 }
             </div>
-
-            {/* <div className="mt-10 flex w-full flex-col gap-6">
-                
-            </div> */}
+            <div className="mb-2 mt-8">
+                <Pagination
+                    isNext={false}
+                    pageNumber={0}
+                />
+            </div>
         </>
     );
 };
