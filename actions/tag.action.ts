@@ -42,10 +42,14 @@ export async function getAllTags(params: GetAllTagsParams) {
     const query: FilterQuery<typeof Tag> = {};
 
     if (searchQuery) {
-      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+        query.$or = [
+            { name: { $regex: new RegExp(searchQuery, "i") } },
+        ];
     }
+    
+    query.questions = { $not: { $size: 0 } };
 
-    const tags = await Tag.find({ questions: { $not: { $size: 0 } } },query);
+    const tags = await Tag.find(query);
 
     return { tags };
   } catch (error) {
@@ -56,6 +60,7 @@ export async function getAllTags(params: GetAllTagsParams) {
 
 export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
   try {
+    connectToDB();
     const { tagId, page = 1, pageSize = 7, searchQuery } = params;
 
     const skipAmount = (page - 1) * pageSize;

@@ -15,10 +15,7 @@ import {
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/Database/question.model";
-import Tag from "@/Database/tag.model";
-import { collectGenerateParams } from "next/dist/build/utils";
 import Answer from "@/Database/answer.model";
-import { BadgeCriteriaType } from "@/Types";
 
 export async function getUserById(params: any) {
   try {
