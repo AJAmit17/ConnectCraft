@@ -4,6 +4,7 @@ import "./globals.css";
 import "../Styles/prism.css";
 import { ThemeProvider } from "@/providers/themeProvider";
 import { ClerkProvider } from '@clerk/nextjs'
+import { ToastProvider } from "@/providers/toastProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const sg = Space_Grotesk({
@@ -42,6 +43,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <ToastProvider />
             {children}
           </ThemeProvider>
         </body>

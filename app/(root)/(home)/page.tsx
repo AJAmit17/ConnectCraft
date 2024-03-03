@@ -1,9 +1,7 @@
 import { getQuestions } from "@/actions/question.action";
-import { getUserById } from "@/actions/user.action";
 import HomeFilters from "@/components/HomeFilters";
 import NoResult from "@/components/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
-import Navbar from "@/components/navbar";
 import Filter from "@/components/search/filter";
 import LocalSearch from "@/components/search/localSearch";
 import { Button } from "@/components/ui/button";
@@ -27,6 +25,8 @@ export default async function Home({
     searchQuery: searchParams.q,
     page: searchParams.page ? +searchParams.page : 1,
   });
+
+  // console.log(result);
 
   return (
     <>

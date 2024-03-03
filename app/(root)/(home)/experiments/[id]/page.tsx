@@ -1,6 +1,7 @@
 import { URLProps } from "@/Types";
 import { getExperimentById } from "@/actions/experiment.action";
 import ParseHtml from "@/components/parseHTML";
+import { ApiList } from "@/components/ui/api-list";
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
 
@@ -10,7 +11,7 @@ export async function generateMetadata({
   const experiment = await getExperimentById({ experimentId: params.id });
 
   return {
-      title: `${experiment.ExpName} | ConnectCraft`,
+    title: `${experiment.ExpName} | ConnectCraft`,
   };
 }
 
@@ -67,6 +68,18 @@ const Page = async ({ params }) => {
       <ParseHtml
         data={result.ExpSoln}     //content
       />
+
+      <Separator className="my-10" orientation="horizontal" />
+
+      <div>
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold tracking-tight">API</h2>
+          <p className="text-sm text-muted-foreground">
+            API Calls for Experiments
+          </p>
+        </div>
+        <ApiList entityName="experiments" entityIdName="experimentId" />
+      </div>
     </>
   )
 }
