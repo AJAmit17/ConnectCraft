@@ -12,6 +12,8 @@ import ProfileLink from '@/components/ProfileLink';
 import { getJoinedDate } from '@/lib/utils';
 import Stats from '@/components/Stats';
 import { Metadata } from 'next';
+import { Separator } from '@/components/ui/separator';
+import { ApiList } from '@/components/ui/api-list';
 
 
 export async function generateMetadata({
@@ -131,6 +133,18 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
                         />
                     </TabsContent>
                 </Tabs>
+            </div>
+
+            <Separator className="my-10" orientation="horizontal" />
+
+            <div>
+                <div className="mb-6">
+                    <h2 className="text-3xl font-bold tracking-tight">API</h2>
+                    <p className="text-sm text-muted-foreground">
+                        API Calls for Profile
+                    </p>
+                </div>
+                <ApiList entityName="profile" entityIdName='' />
             </div>
         </>
     )

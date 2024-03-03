@@ -8,6 +8,8 @@ import Link from 'next/link';
 
 import type { Metadata } from "next";
 import Pagination from '@/components/pagination';
+import { ApiList } from '@/components/ui/api-list';
+import { Separator } from '@/components/ui/separator';
 
 export const metadata: Metadata = {
   title: "Community | ConnectCraft",
@@ -62,6 +64,18 @@ const CommunityPage = async ({ searchParams }: SearchParamsProps) => {
           pageNumber={searchParams?.page ? +searchParams.page : 1}
           isNext={result?.isNext}
         />
+      </div>
+
+      <Separator className="my-10" orientation="horizontal" />
+
+      <div>
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold tracking-tight">API</h2>
+          <p className="text-sm text-muted-foreground">
+            API Calls for Community
+          </p>
+        </div>
+        <ApiList entityName="community" entityIdName="" />
       </div>
     </>
   )

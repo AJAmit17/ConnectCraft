@@ -8,6 +8,8 @@ import AnswersCard from '@/components/cards/AnswersCard';
 import Answers from '@/components/forms/Answers';
 import Matric from '@/components/matric';
 import ParseHtml from '@/components/parseHTML';
+import { ApiList } from '@/components/ui/api-list';
+import { Separator } from '@/components/ui/separator';
 import { formatTimeAgo } from '@/lib/utils';
 import { auth } from '@clerk/nextjs';
 import { Metadata } from 'next';
@@ -122,6 +124,18 @@ const QuestionPage = async ({ searchParams, params }) => {
                 questionId={result._id}
                 authorId={JSON.stringify(mongoUser._id)}
             />
+
+            <Separator className="my-10" orientation="horizontal" />
+
+            <div>
+                <div className="mb-6">
+                    <h2 className="text-3xl font-bold tracking-tight">API</h2>
+                    <p className="text-sm text-muted-foreground">
+                        API Calls for Questions
+                    </p>
+                </div>
+                <ApiList entityName="question" entityIdName={''} />
+            </div>
         </>
     )
 }

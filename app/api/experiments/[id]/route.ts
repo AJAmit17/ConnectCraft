@@ -11,7 +11,7 @@ export async function GET(req: Request, { params: experimentId }) {
 
     return NextResponse.json({ experiment });
   } catch (error) {
-    console.error("[EXPERIMENT_GET]", error);
+    console.error("[EXPERIMENT_ID_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
