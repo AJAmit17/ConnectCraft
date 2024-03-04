@@ -15,6 +15,7 @@ import { auth } from '@clerk/nextjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react'
 
 export async function generateMetadata({
@@ -39,6 +40,9 @@ const QuestionPage = async ({ searchParams, params }) => {
 
     if (clerkId) {
         mongoUser = await getUserById({ userId: clerkId })
+    }
+    else{
+        redirect("/sign-in");
     }
 
     return (

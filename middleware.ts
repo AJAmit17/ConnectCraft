@@ -7,13 +7,18 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/api/webhook",
-    "question/:id",
+    "/question/:id",
+    "/api/question/:id",
     "/tags",
     "/tags/:id",
+    "/api/tags/:id",
     "/profile/:id",
+    "/api/profile/:id",
     "/community",
+    "/api/community",
     "/experiments",
-    "/experiments/:id"
+    "/experiments/:id",
+    "/api/experiments/:id",
   ],
   ignoredRoutes: [
     "/api/webhook",

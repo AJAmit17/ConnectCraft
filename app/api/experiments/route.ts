@@ -6,9 +6,14 @@ export async function GET(req: Request) {
   try {
     await connectToDB();
 
-    const experiment = await Experiment.find({});
+    const experiments = await Experiment.find({});
 
-    return NextResponse.json({ experiment });
+    if (!experiments) {
+      console.error("[EXPERIMENT_GET] No experiments found");
+      return new NextResponse("No experiments found", { status: 404 });
+    }
+
+    return NextResponse.json({ experiments });
   } catch (error) {
     console.error("[EXPERIMENT_GET]", error);
     return new NextResponse("Internal error", { status: 500 });

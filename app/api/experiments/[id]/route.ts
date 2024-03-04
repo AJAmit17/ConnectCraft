@@ -9,7 +9,7 @@ export async function GET(req: Request, { params: experimentId }) {
 
     const experiment = await Experiment.findById(experimentId.id);
 
-    return NextResponse.json({ experiment });
+    return NextResponse.json(experiment);
   } catch (error) {
     console.error("[EXPERIMENT_ID_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
