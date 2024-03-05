@@ -27,8 +27,6 @@ const LocalSearch = ({
 
     const query = searchParams.get("q");
 
-    console.log(query)
-
     const [search, setSearch] = useState(query || "");
 
     useEffect(() => {

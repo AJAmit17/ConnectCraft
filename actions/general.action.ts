@@ -6,6 +6,7 @@ import Tag from "@/Database/tag.model";
 import User from "@/Database/user.model";
 import { connectToDB } from "@/lib/mongoose";
 import { SearchParams } from "./shared.types";
+import Experiment from "@/Database/experiment.model";
 
 
 const searchableTypes = ["question", "user", "answer", "tag"];
@@ -25,6 +26,7 @@ export async function globalSearch(params: SearchParams) {
       { model: User, searchField: "name", type: "user" },
       { model: Answer, searchField: "content", type: "answer" },
       { model: Tag, searchField: "name", type: "tag" },
+      { model: Experiment, searchField: "ExpName", type: "experiment" },
     ];
 
     const typeLower = type?.toLowerCase();

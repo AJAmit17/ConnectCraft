@@ -33,6 +33,7 @@ export const GlobalSearchFilters = [
   { name: "Answer", value: "answer" },
   { name: "User", value: "user" },
   { name: "Tag", value: "tag" },
+  { name: "Experiments", value: "exepriment" },
 ];
 export const CourseSearchFilter = [
   { name: "ADS", value: "22CDL32" },
