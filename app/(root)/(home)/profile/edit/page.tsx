@@ -1,6 +1,6 @@
 import { ParamsProps } from "@/Types";
 import { getUserById } from "@/actions/user.action";
-import ProfileForm from "@/components/ProfileForm";
+import ProfileForm from "@/components/forms/ProfileForm";
 import { auth } from "@clerk/nextjs";
 
 const Page = async ({ params }: ParamsProps) => {

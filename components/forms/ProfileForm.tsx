@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter } from "next/navigation";
-import { updateUser } from "@/actions/user.action";
-import { Textarea } from "./ui/textarea";
+import { deleteUser, updateUser } from "@/actions/user.action";
+import { Textarea } from "../ui/textarea";
 
 
 interface Props {
@@ -35,6 +35,10 @@ const ProfileForm = ({ clerkId, user }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleDelete = async () => {
+    await deleteUser({ clerkId });
+  };
 
   // URL Validation
   const isURL = (value: string) => {
@@ -203,6 +207,9 @@ const ProfileForm = ({ clerkId, user }: Props) => {
             type="submit"
           >
             {isSubmitting ? "Saving..." : "Save"}
+          </Button>
+          <Button onClick={handleDelete}>
+            Delete Account
           </Button>
         </div>
       </form>
