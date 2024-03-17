@@ -4,6 +4,9 @@ import React, { useEffect } from 'react'
 
 import Prism from "prismjs"
 import parse from "html-react-parser"
+import { CopyIcon } from '@radix-ui/react-icons'
+import { Button } from './ui/button';
+import toast from 'react-hot-toast';
 
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -30,17 +33,30 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface Props {
-  data: string
+  data: string;
+  type?: string
 }
 
-const ParseHtml = ({ data }: Props) => {
+const ParseHtml = ({ data, type }: Props) => {
 
   useEffect(() => {
     Prism.highlightAll();
-  }, [])
+  }, []);
+
+  const copyCode = () => {
+    const value = document.querySelector("code")?.textContent;
+    //@ts-ignore
+    navigator.clipboard.writeText(value);
+    toast.success("Code Copied!!!");
+  }
 
   return (
-    <div>
+    <div className='code-block'>
+      {
+        type == "solution"
+          ? <Button className='relative flex flex-row' onClick={copyCode}><CopyIcon /></Button>
+          : null
+      }
       {parse(data)}
     </div>
   )

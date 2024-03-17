@@ -99,121 +99,123 @@ const ProfileForm = ({ clerkId, user }: Props) => {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mt-9 flex w-full flex-col gap-9"
-      >
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem className="space-y-3.5">
-              <FormLabel className="font-semibold">
-                Name <span className=" text-rose-600">*</span>
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="min-h-[56px] border"
-                  placeholder="Your name"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-rose-600" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem className="space-y-3.5">
-              <FormLabel className="font-semibold">
-                Username <span className="text-rose-500">*</span>
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
-                  placeholder="Your username"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-rose-600" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="portfolio"
-          render={({ field }) => (
-            <FormItem className="space-y-3.5">
-              <FormLabel className="font-semibold">
-                Portfolio Url
-              </FormLabel>
-              <FormControl>
-                <Input
-                  type="url"
-                  className="min-h-[56px] border"
-                  placeholder="url: https://www.example.com/"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-rose-600" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem className="space-y-3.5">
-              <FormLabel className="font-semibold">
-                Location <span className="text-rose-500">*</span>
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="min-h-[56px] border"
-                  placeholder="Where are you from?"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-rose-600" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="bio"
-          render={({ field }) => (
-            <FormItem className="space-y-3.5">
-              <FormLabel className="font-semibold">
-                Bio <span className="text-rose-500">*</span>
-              </FormLabel>
-              <FormControl>
-                <Textarea
-                  className="min-h-[56px] border"
-                  placeholder="What's special about you?"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="text-rose-600" />
-            </FormItem>
-          )}
-        />
-        <div className="mt-7 flex  justify-end">
-          <Button
-            className="primary-gradient w-fit !text-light-900"
-            disabled={isSubmitting}
-            type="submit"
-          >
-            {isSubmitting ? "Saving..." : "Save"}
-          </Button>
-          <Button onClick={handleDelete}>
-            Delete Account
-          </Button>
-        </div>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-9 flex w-full flex-col gap-9"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="space-y-3.5">
+                <FormLabel className="font-semibold">
+                  Name <span className=" text-rose-600">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="min-h-[56px] border"
+                    placeholder="Your name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-rose-600" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="space-y-3.5">
+                <FormLabel className="font-semibold">
+                  Username <span className="text-rose-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="light-border-2 paragraph-regular no-focus background-light700_dark300 text-dark300_light700 min-h-[56px] border"
+                    placeholder="Your username"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-rose-600" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="portfolio"
+            render={({ field }) => (
+              <FormItem className="space-y-3.5">
+                <FormLabel className="font-semibold">
+                  Portfolio Url
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type="url"
+                    className="min-h-[56px] border"
+                    placeholder="url: https://www.example.com/"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-rose-600" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem className="space-y-3.5">
+                <FormLabel className="font-semibold">
+                  Location <span className="text-rose-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="min-h-[56px] border"
+                    placeholder="Where are you from?"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-rose-600" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem className="space-y-3.5">
+                <FormLabel className="font-semibold">
+                  Bio <span className="text-rose-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="min-h-[56px] border"
+                    placeholder="What's special about you?"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-rose-600" />
+              </FormItem>
+            )}
+          />
+          <div className="mt-7 flex  justify-end">
+            <Button
+              className="primary-gradient w-fit !text-light-900"
+              disabled={isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? "Saving..." : "Save"}
+            </Button>
+          </div>
+        </form>
+      </Form>
+      <Button onClick={handleDelete}>
+        Delete Account
+      </Button>
+    </>
   );
 };
 

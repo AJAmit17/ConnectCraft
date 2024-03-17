@@ -66,7 +66,8 @@ const Page = async ({ params }) => {
         </h1>
       </div>
       <ParseHtml
-        data={result.ExpSoln}     //content
+        data={result.ExpSoln}
+        type = "solution"     //content
       />
 
       <Separator className="my-10" orientation="horizontal" />
