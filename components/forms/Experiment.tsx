@@ -75,7 +75,11 @@ export default function ExperimentForm() {
                                 Year<span className="ml-1 font-bold text-destructive">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
-                                <Input className="bg-input min-h-[56px] rounded-lg border border-primary-foreground" type="number" />
+                                <Input
+                                    type="number"
+                                    className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
+                                    onChange={event => field.onChange(+event.target.value)}
+                                />
                             </FormControl>
                             <FormDescription className="mt-2.5">
                                 Enter Year in Number i.e., 1/2/3/4
@@ -171,8 +175,9 @@ export default function ExperimentForm() {
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input
-                                    className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
                                     type="number"
+                                    className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
+                                    onChange={event => field.onChange(+event.target.value)}
                                 />
                             </FormControl>
                             <FormDescription className="mt-2.5">
