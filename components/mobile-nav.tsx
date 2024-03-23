@@ -13,6 +13,7 @@ import { SignedOut } from "@clerk/nextjs"
 import { Button } from "./ui/button"
 import { sidebarLinks } from "@/constants/sidebarlinks"
 import { usePathname } from "next/navigation"
+import { Computer, Home, LogIn, Star, Tags, User, UserPlus, UsersRound } from "lucide-react"
 
 const NavContent = () => {
     const pathname = usePathname()
@@ -21,6 +22,33 @@ const NavContent = () => {
         <section className="flex h-full flex-col gap-6 pt-16">
             {sidebarLinks.map((item) => {
                 const isActive = (pathname.includes(item.route) && item.route.length > 1) || pathname === item.route;
+
+                let icon = null;
+                switch (item.route) {
+                    case '/':
+                        icon = <Home />;
+                        break;
+                    case '/community':
+                        icon = <UsersRound />;
+                        break;
+                    case '/collection':
+                        icon = <Star />;
+                        break;
+                    case '/tags':
+                        icon = <Tags />;
+                        break;
+                    case `/profile`:
+                        icon = <User />;
+                        break;
+                    case '/ask-questions':
+                        icon = <Tags />;
+                        break;
+                    case '/experiments':
+                        icon = <Computer />;
+                        break;
+                    default:
+                        icon = null;
+                }
                 return (
                     <SheetClose asChild key={item.route}>
                         <Link
@@ -29,12 +57,7 @@ const NavContent = () => {
                                 flex items-center gap-4 p-4  rounded-lg
                             `}
                         >
-                            <Image
-                                src={item.imageURL}
-                                alt={item.label}
-                                width={20}
-                                height={20}
-                            />
+                            {icon}
                             <p className=" font-bold">{item.label}</p>
                         </Link>
                     </SheetClose>
@@ -71,14 +94,16 @@ const MobileNav = () => {
                             <SheetClose asChild>
                                 <Link href='sign-in'>
                                     <Button className="w-full p-2 min-h-[41px] rounded-lg px-4 py-3 shadow-none">
-                                        <span>Sign In</span>
+                                        <LogIn />
+                                        <span className="p-2">Sign In</span>
                                     </Button>
                                 </Link>
                             </SheetClose>
                             <SheetClose asChild>
                                 <Link href='sign-up'>
                                     <Button className="w-full p-2 min-h-[41px] rounded-lg px-4 py-3 shadow-none">
-                                        <span>Sign Up</span>
+                                        <UserPlus />
+                                        <span className="p-2">Sign Up</span>
                                     </Button>
                                 </Link>
                             </SheetClose>

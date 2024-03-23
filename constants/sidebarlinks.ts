@@ -1,43 +1,35 @@
 type SidebarLink = {
-    label: string;
-    route: string;
-    imageURL: string;
-}
+  label: string;
+  route: string;
+};
 
 export const sidebarLinks: SidebarLink[] = [
-    {
-        label: "Home",
-        route: "/",
-        imageURL : "/assets/icons/home.svg",
-    },
-    {
-        label: "Community",
-        route: "/community",
-        imageURL : "/assets/icons/users.svg"
-    },    
-    {
-        label: "Collections",
-        route: "/collection",
-        imageURL : "/assets/icons/star.svg"
-    },
-    {
-        label: "Tags",
-        route: "/tags",
-        imageURL : "/assets/icons/tag.svg"
-    },
-    {
-        label: "Profile",
-        route: "/profile",
-        imageURL : "/assets/icons/user.svg"
-    },
-    {
-        label: "Ask a Question",
-        route: "/ask-questions",
-        imageURL : "/assets/icons/question.svg"
-    },
-    {
-        label: "Lab Experiments",
-        route: "/experiments",
-        imageURL : "/assets/icons/labs.png"
-    },
+  {
+    label: "Home",
+    route: "/",
+  },
+  {
+    label: "Community",
+    route: "/community",
+  },
+  {
+    label: "Collections",
+    route: "/collection",
+  },
+  {
+    label: "Tags",
+    route: "/tags",
+  },
+  {
+    label: "Profile",
+    route: "/profile",
+  },
+  {
+    label: "Ask a Question",
+    route: "/ask-questions",
+  },
+  {
+    label: "Lab Experiments",
+    route: "/experiments",
+  },
 ];

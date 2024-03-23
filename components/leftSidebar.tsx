@@ -8,10 +8,20 @@ import { usePathname } from 'next/navigation';
 import { sidebarLinks } from "@/constants/sidebarlinks"
 import { SignedOut, useAuth } from '@clerk/nextjs';
 import { Button } from './ui/button';
+import {
+  Home,
+  User,
+  UsersRound,
+  Star,
+  Tags,
+  Computer,
+  LogIn,
+  UserPlus
+} from 'lucide-react';
 
 const LeftSideBar = () => {
   const { userId } = useAuth();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <section className='bg-primary-foreground sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto p-6 pt-36 shadow-white-300 dark:shadow-none max-sm:hidden lg:w-[290px] border-r-2'>
@@ -26,6 +36,34 @@ const LeftSideBar = () => {
               return null;
             }
           }
+          
+          let icon = null;
+          switch (item.route) {
+            case '/':
+              icon = <Home />;
+              break;
+            case '/community':
+              icon = <UsersRound />;
+              break;
+            case '/collection':
+              icon = <Star />;
+              break;
+            case '/tags':
+              icon = <Tags />;
+              break;
+            case `/profile/${userId}`:
+              icon = <User />;
+              break;
+            case '/ask-questions':
+              icon = <Tags />;
+              break;
+            case '/experiments':
+              icon = <Computer />;
+              break;
+            default:
+              icon = null;
+          }
+
           return (
             <Link
               key={item.route}
@@ -34,12 +72,7 @@ const LeftSideBar = () => {
                                 flex items-center gap-4 p-4  rounded-lg
                             `}
             >
-              <Image
-                src={item.imageURL}
-                alt={item.label}
-                width={20}
-                height={20}
-              />
+              {icon} {/* Render the icon */}
               <p className={`${isActive ? "font-bold" : "font-medium"} max-lg:hidden`}>{item.label}</p>
             </Link>
           )
@@ -52,20 +85,16 @@ const LeftSideBar = () => {
           <div>
             <Link href='sign-in'>
               <Button className="w-full p-2 min-h-[41px] rounded-lg px-4 py-3 shadow-none">
-                <Image
-                  src="/assets/icons/account.svg"
-                  width={14}
-                  height={14}
-                  alt='Profile'
-                />
-                <span>Sign In</span>
+                <LogIn />
+                <span className='p-2'>Sign In</span>
               </Button>
             </Link>
           </div>
           <div>
             <Link href='sign-up'>
               <Button className="w-full p-2 min-h-[41px] rounded-lg px-4 py-3 shadow-none">
-                <span>Sign Up</span>
+                <UserPlus />
+                <span className='p-2'>Sign Up</span>
               </Button>
             </Link>
           </div>
