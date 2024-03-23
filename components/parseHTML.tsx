@@ -51,10 +51,10 @@ const ParseHtml = ({ data, type }: Props) => {
   }
 
   return (
-    <div className='code-block'>
+    <div className='relative w-[1024px] mt-8 pb-20'>
       {
         type == "solution"
-          ? <Button className='relative flex flex-row' onClick={copyCode}><CopyIcon /></Button>
+          ? <Button className='absolute flex flex-row-reverse right-0 m-2' onClick={copyCode}><CopyIcon /></Button>
           : null
       }
       {parse(data)}
