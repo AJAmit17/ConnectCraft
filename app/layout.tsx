@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Mulish } from "next/font/google";
 import "./globals.css";
 import "../Styles/prism.css";
 import { ThemeProvider } from "@/providers/themeProvider";
 import { ClerkProvider } from '@clerk/nextjs'
 import { ToastProvider } from "@/providers/toastProvider";
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
-const sg = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-sg'
-})
+const mulish = Mulish({
+  style : 'normal',
+  subsets : ['latin'],
+});
 
 export const metadata: Metadata = {
   title: "ConnectCraft",
-  description: "A App for CSE-DS Students",
-  icons: {
-    icon: "https://cdn-icons-png.flaticon.com/128/11738/11738792.png"
-  }
+  description: "A Web App for CSE-DS Students",
 };
 
 export default function RootLayout({
@@ -36,7 +31,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.variable} ${sg.variable}`}>
+        <body className={`${mulish.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
