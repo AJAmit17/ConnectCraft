@@ -11,12 +11,12 @@ const Navbar = () => {
     <nav className=' bg-primary-foreground flex items-center justify-center fixed z-50 w-full gap-5 p-6 shadow-md sm:px-12'>
       <Link href="/" className='flex items-center gap-1'>
         <Image
-          src="/assets/images/site-logo.svg"
-          width={23}
-          height={23}
+          src="/assets/icons/Logo.svg"
+          width={35}
+          height={35}
           alt='ConnectCraft'
         />
-        <p className=' font-bold text-primary max-sm:hidden'>Connect
+        <p className='p-2 font-bold text-primary max-sm:hidden'>Connect
           <span className='text-violet-900 font-bold p-1'>Craft</span>
         </p>
       </Link>

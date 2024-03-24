@@ -75,13 +75,13 @@ const MobileNav = () => {
             <SheetContent side="left" className="border-none bg-secondary">
                 <Link href="/" className='flex items-center gap-1'>
                     <Image
-                        src="/assets/images/site-logo.svg"
-                        width={23}
-                        height={23}
+                        src="/assets/icons/Logo.svg"
+                        width={35}
+                        height={35}
                         alt='ConnectCraft'
                     />
-                    <p className=' font-bold text-primary max-sm:hidden'>Connect
-                        <span className=' text-violet-900 font-bold'>Craft</span>
+                    <p className='p-2 font-bold text-primary max-sm:hidden'>Connect
+                        <span className='p-1 text-violet-900 font-bold'>Craft</span>
                     </p>
                 </Link>
                 <div className="no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto">
