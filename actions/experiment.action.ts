@@ -3,11 +3,12 @@
 import Experiment from "@/Database/experiment.model";
 import { connectToDB } from "@/lib/mongoose";
 import {
+  EditExperimentParams,
   GetExperimentByIdParams,
   GetExperimentParams,
-  getExpByCCode,
 } from "./shared.types";
 import { FilterQuery } from "mongoose";
+import { revalidatePath } from "next/cache";
 
 export async function getAllExperiment(params: GetExperimentParams) {
   try {
@@ -95,4 +96,43 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
     console.log(error);
     throw error;
   }
+}
+
+export async function editExperiment(params: EditExperimentParams) {
+  try {
+    connectToDB();
+    
+    const {
+      exp_id,
+      year,
+      aceYear,
+      Branch,
+      CCode,
+      CName,
+      ExpNo,
+      ExpName,
+      ExpDesc,
+      ExpSoln,
+    } = params;
+
+    const experiment = await Experiment.findById(exp_id);
+
+    if (!experiment) {
+      throw new Error("Experiment not found");
+    }
+
+    experiment.year = year;
+    experiment.aceYear = aceYear;
+    experiment.Branch = Branch;
+    experiment.CCode = CCode;
+    experiment.CName = CName;
+    experiment.ExpNo = ExpNo;
+    experiment.ExpName = ExpName;
+    experiment.ExpDesc = ExpDesc;
+    experiment.ExpSoln = ExpSoln;
+
+    await experiment.save();
+
+    revalidatePath(`/experiment/${exp_id}`);
+  } catch (error) {}
 }

@@ -167,7 +167,7 @@ export interface GetExperimentParams {
   ExpName: string;
   ExpDesc: string;
   ExpSoln: string;
-  searchQuery? : string;
+  searchQuery?: string;
   page?: number;
   pageSize?: number;
 }
@@ -180,6 +180,15 @@ export interface GetTagByIdParams {
   tagId: string;
 }
 
-export interface getExpByCCode{
+export interface EditExperimentParams {
+  exp_id: string;
+  year: number;
+  aceYear: string;
+  Branch: string;
   CCode: string;
+  CName: string;
+  ExpNo: number;
+  ExpName: string;
+  ExpDesc: string;
+  ExpSoln: string;
 }

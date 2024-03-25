@@ -1,6 +1,6 @@
 "use client"
 
-import { createExperiment } from "@/actions/experiment.action";
+import { createExperiment, editExperiment } from "@/actions/experiment.action";
 import { ExperimentSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -24,23 +24,35 @@ import { Textarea } from "../ui/textarea";
 
 dotenv.config();
 
-export default function ExperimentForm() {
+interface ExpProps {
+    type?: string,
+    monogoUserId? : string,
+    experimentDetails? : string
+}
+
+export default function ExperimentForm({
+    type,
+    monogoUserId,
+    experimentDetails,
+}: ExpProps) {
     const editorRef = useRef(null)
     const router = useRouter();
+
+    const parsedExperimentDetails = experimentDetails && JSON.parse(experimentDetails || "");
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const form = useForm<z.infer<typeof ExperimentSchema>>({
         resolver: zodResolver(ExperimentSchema),
         defaultValues: {
-            year: 0,
-            aceYear: "",
-            Branch: "",
-            CCode: "",
-            CName: "",
-            ExpNo: 0,
-            ExpName: "",
-            ExpDesc: "",
-            ExpSoln: "",
+            year: parsedExperimentDetails ? parsedExperimentDetails.year : 0,
+            aceYear: parsedExperimentDetails ? parsedExperimentDetails.aceYear || "" : "",
+            Branch: parsedExperimentDetails ? parsedExperimentDetails.Branch || "" : "",
+            CCode: parsedExperimentDetails ? parsedExperimentDetails.CCode || "" : "",
+            CName: parsedExperimentDetails ? parsedExperimentDetails.CName || "" : "",
+            ExpNo: parsedExperimentDetails ? parsedExperimentDetails.ExpNo : 0,
+            ExpName: parsedExperimentDetails ? parsedExperimentDetails.ExpName || "" : "",
+            ExpDesc: parsedExperimentDetails ? parsedExperimentDetails.ExpDesc || "" : "",
+            ExpSoln: parsedExperimentDetails ? parsedExperimentDetails.ExpSoln || "" : "",
         }
     });
 
@@ -49,11 +61,27 @@ export default function ExperimentForm() {
         // console.log(values);
 
         try {
-            await createExperiment({
-                ...values,
-            });
+            if (type === "Edit") {
+                await editExperiment({
+                    exp_id : parsedExperimentDetails?._id,
+                    year : values.year,
+                    aceYear : values.aceYear,
+                    Branch : values.Branch,
+                    CCode : values.CCode,
+                    CName : values.CName,
+                    ExpNo : values.ExpNo,
+                    ExpName : values.ExpName,
+                    ExpDesc : values.ExpDesc,
+                    ExpSoln : values.ExpSoln,
+                })
+                router.push(`/experiments`);
+            } else {
+                await createExperiment({
+                    ...values,
+                });
 
-            router.push("/")
+                router.push("/")
+            }
         } catch (error) {
             console.log(error);
             throw error;
@@ -78,6 +106,7 @@ export default function ExperimentForm() {
                                 <Input
                                     type="number"
                                     className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
+                                    {...field}
                                     onChange={event => field.onChange(+event.target.value)}
                                 />
                             </FormControl>
@@ -177,6 +206,7 @@ export default function ExperimentForm() {
                                 <Input
                                     type="number"
                                     className="bg-input min-h-[56px] rounded-lg border border-primary-foreground"
+                                    {...field}
                                     onChange={event => field.onChange(+event.target.value)}
                                 />
                             </FormControl>
@@ -247,7 +277,7 @@ export default function ExperimentForm() {
                                     }}
                                     onBlur={field.onBlur}
                                     onEditorChange={(content) => field.onChange(content)}
-                                    initialValue=" "
+                                    initialValue={parsedExperimentDetails ? parsedExperimentDetails.ExpSoln || "" : ""}
                                     init={{
                                         height: 350,
                                         menubar: false,

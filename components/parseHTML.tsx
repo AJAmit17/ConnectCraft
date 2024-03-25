@@ -7,6 +7,12 @@ import parse from "html-react-parser"
 import { CopyIcon } from '@radix-ui/react-icons'
 import { Button } from './ui/button';
 import toast from 'react-hot-toast';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -54,7 +60,24 @@ const ParseHtml = ({ data, type }: Props) => {
     <div className='relative w-[1024px] mt-8 pb-20'>
       {
         type == "solution"
-          ? <Button className='absolute flex flex-row-reverse right-0 m-2' onClick={copyCode}><CopyIcon /></Button>
+          ? (
+            <>
+              <div className='absolute flex flex-row-reverse right-0 m-2'>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button onClick={copyCode}>
+                        <CopyIcon />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Copy Code!</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </>
+          )
           : null
       }
       {parse(data)}

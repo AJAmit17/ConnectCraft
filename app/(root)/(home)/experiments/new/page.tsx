@@ -20,7 +20,7 @@ export default async function Home() {
       <h1 className=' text-3xl font-bold'>Upload Experiment</h1>
       <div className='mt-9'>
         {
-          mongoUser._id == '65ba58e978cebf08c8af9f48' 
+          mongoUser._id == '66005f8a463f2faa6cbd522c' 
           ? <ExperimentForm /> 
           : <h1>You are not Allowed to Add Experiments</h1>
         }

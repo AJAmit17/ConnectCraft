@@ -55,7 +55,7 @@ const UserCard = async ({ user }: Props) => {
                         )
                         : (
                             <Badge>
-                                No Tags yet
+                                No Top Interacted Tags
                             </Badge>
                         )
                     }
