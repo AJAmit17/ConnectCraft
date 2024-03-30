@@ -181,7 +181,7 @@ export interface GetTagByIdParams {
 }
 
 export interface EditExperimentParams {
-  exp_id: string;
+  _id : string;
   year: number;
   aceYear: string;
   Branch: string;

@@ -63,23 +63,14 @@ export default function ExperimentForm({
         try {
             if (type === "Edit") {
                 await editExperiment({
-                    exp_id : parsedExperimentDetails?._id,
-                    year : values.year,
-                    aceYear : values.aceYear,
-                    Branch : values.Branch,
-                    CCode : values.CCode,
-                    CName : values.CName,
-                    ExpNo : values.ExpNo,
-                    ExpName : values.ExpName,
-                    ExpDesc : values.ExpDesc,
-                    ExpSoln : values.ExpSoln,
+                    _id: parsedExperimentDetails?._id,
+                    ...values
                 })
                 router.push(`/experiments`);
             } else {
                 await createExperiment({
                     ...values,
                 });
-
                 router.push("/")
             }
         } catch (error) {

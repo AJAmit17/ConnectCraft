@@ -101,9 +101,9 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
 export async function editExperiment(params: EditExperimentParams) {
   try {
     connectToDB();
-    
+
     const {
-      exp_id,
+      _id,
       year,
       aceYear,
       Branch,
@@ -115,24 +115,14 @@ export async function editExperiment(params: EditExperimentParams) {
       ExpSoln,
     } = params;
 
-    const experiment = await Experiment.findById(exp_id);
+    const experiment = await Experiment.findById(_id).lean();
 
     if (!experiment) {
       throw new Error("Experiment not found");
     }
 
-    experiment.year = year;
-    experiment.aceYear = aceYear;
-    experiment.Branch = Branch;
-    experiment.CCode = CCode;
-    experiment.CName = CName;
-    experiment.ExpNo = ExpNo;
-    experiment.ExpName = ExpName;
-    experiment.ExpDesc = ExpDesc;
-    experiment.ExpSoln = ExpSoln;
-
-    await experiment.save();
-
-    revalidatePath(`/experiment/${exp_id}`);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

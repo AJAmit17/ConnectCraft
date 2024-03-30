@@ -7,8 +7,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ToastProvider } from "@/providers/toastProvider";
 
 const mulish = Mulish({
-  style : 'normal',
-  subsets : ['latin'],
+  style: 'normal',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
