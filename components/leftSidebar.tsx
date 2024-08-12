@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -16,7 +15,8 @@ import {
   Tags,
   Computer,
   LogIn,
-  UserPlus
+  UserPlus,
+  BriefcaseIcon
 } from 'lucide-react';
 
 const LeftSideBar = () => {
@@ -59,6 +59,9 @@ const LeftSideBar = () => {
               break;
             case '/experiments':
               icon = <Computer />;
+              break;
+            case "/jobs":
+              icon = <BriefcaseIcon/>;
               break;
             default:
               icon = null;

@@ -192,3 +192,10 @@ export interface EditExperimentParams {
   ExpDesc: string;
   ExpSoln: string;
 }
+
+export interface GetJobsParams extends Searchable {
+  location?: string;
+  remote?: boolean | string;
+  wage?: boolean | string;
+  skills?: boolean | string;
+}
