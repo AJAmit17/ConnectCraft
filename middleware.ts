@@ -22,6 +22,8 @@ export default authMiddleware({
     "/community",
     "/api/community",
 
+    "/jobs",
+    
     "/experiments",
     "/api/experiments",
     "/experiments/:id",
