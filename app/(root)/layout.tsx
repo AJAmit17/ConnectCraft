@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Navbar from "@/components/navbar";
 import LeftSideBar from "@/components/leftSidebar";
 import RightSideBar from "@/components/rightSidebar";
