@@ -2,24 +2,29 @@ import Experiment from "@/Database/experiment.model";
 import { connectToDB } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
 
-//@ts-ignore
-export async function GET(req: Request, { params: experimentId }) {
+export async function GET(req: Request, { params }: { params: { experimentId: string } }) {
   try {
     await connectToDB();
 
-    const experiment = await Experiment.findById(experimentId.id);
+    const experiment = await Experiment.findById(params.experimentId).lean();
 
     if (!experiment) {
       console.error("[EXPERIMENT_ID_GET] No experiment found");
       return new NextResponse("No experiment found", { status: 404 });
     }
 
-    const changeStream = Experiment.watch();
-    changeStream.close();
-
-    return NextResponse.json(experiment);
+    return NextResponse.json(
+      { experiment },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      }
+    );
   } catch (error) {
     console.error("[EXPERIMENT_ID_GET]", error);
-    return new NextResponse("Internal error", { status: 500 });
+    return new NextResponse("Internal server error", { status: 500 });
   }
 }
