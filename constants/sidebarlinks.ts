@@ -32,4 +32,8 @@ export const sidebarLinks: SidebarLink[] = [
     label: "Lab Experiments",
     route: "/experiments",
   },
+  {
+    label: "Jobs",
+    route: "/jobs",
+  },
 ];
