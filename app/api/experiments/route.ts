@@ -6,6 +6,12 @@ export async function GET(req: Request) {
   try {
     await connectToDB();
 
+    const changeStream = Experiment.watch();
+
+    changeStream.on("change", (change) => {
+      console.log("[EXPERIMENT_GET] Change detected: ", change);
+    });
+
     const experiments = await Experiment.find({});
 
     if (!experiments) {
