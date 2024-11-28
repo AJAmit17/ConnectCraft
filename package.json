@@ -77,6 +77,7 @@
     "mongoose": "^8.2.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
+    "pinata": "^1.8.1",
     "prismjs": "^1.29.0",
     "query-string": "^8.2.0",
     "react": "^18",
