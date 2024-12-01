@@ -67,8 +67,27 @@ const Page = async ({ params }) => {
       </div>
       <ParseHtml
         data={result.ExpSoln}
-        type = "solution"     //content
+        type="solution"     //content
       />
+
+      <Separator className="my-10" orientation="horizontal" />
+
+      {result.youtubeLink && (
+        <div className="mt-6">
+          <h1 className="text-2xl font-semibold mb-6">
+            Video Tutorial:
+          </h1>
+          <div className="relative w-full aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${result.youtubeLink.split('/').pop()?.split('?')[0]}`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
+            />
+          </div>
+        </div>
+      )}
 
       <Separator className="my-10" orientation="horizontal" />
 

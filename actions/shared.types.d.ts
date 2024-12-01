@@ -167,6 +167,7 @@ export interface GetExperimentParams {
   ExpName: string;
   ExpDesc: string;
   ExpSoln: string;
+  youtubeLink? : string;
   searchQuery?: string;
   page?: number;
   pageSize?: number;
@@ -191,6 +192,7 @@ export interface EditExperimentParams {
   ExpName: string;
   ExpDesc: string;
   ExpSoln: string;
+  youtubeLink? : string;
 }
 
 export interface GetJobsParams extends Searchable {

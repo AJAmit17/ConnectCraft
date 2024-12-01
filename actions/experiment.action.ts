@@ -8,7 +8,6 @@ import {
   GetExperimentParams,
 } from "./shared.types";
 import { FilterQuery } from "mongoose";
-import { revalidatePath } from "next/cache";
 
 export async function getAllExperiment(params: GetExperimentParams) {
   try {
@@ -29,6 +28,7 @@ export async function getAllExperiment(params: GetExperimentParams) {
         { ExpName: { $regex: new RegExp(searchQuery, "i") } },
         { ExpDesc: { $regex: new RegExp(searchQuery, "i") } },
         { ExpSoln: { $regex: new RegExp(searchQuery, "i") } },
+        { youtubeLink: { $regex: new RegExp(searchQuery, "i") } },
       ];
     }
 
@@ -62,6 +62,7 @@ export async function createExperiment(params: GetExperimentParams) {
       ExpName,
       ExpDesc,
       ExpSoln,
+      youtubeLink, 
     } = params;
 
     const experiment = await Experiment.create({
@@ -74,6 +75,7 @@ export async function createExperiment(params: GetExperimentParams) {
       ExpName,
       ExpDesc,
       ExpSoln,
+      youtubeLink,
     });
 
     return { experiment };
@@ -100,7 +102,7 @@ export async function getExperimentById(params: GetExperimentByIdParams) {
 
 export async function editExperiment(params: EditExperimentParams) {
   try {
-    connectToDB();
+    await connectToDB();
 
     const {
       _id,
@@ -113,14 +115,29 @@ export async function editExperiment(params: EditExperimentParams) {
       ExpName,
       ExpDesc,
       ExpSoln,
+      youtubeLink,
     } = params;
 
-    const experiment = await Experiment.findById(_id).lean();
+    const experiment = await Experiment.findById(_id);
 
     if (!experiment) {
       throw new Error("Experiment not found");
     }
 
+    experiment.year = year;
+    experiment.aceYear = aceYear;
+    experiment.Branch = Branch;
+    experiment.CCode = CCode;
+    experiment.CName = CName;
+    experiment.ExpNo = ExpNo;
+    experiment.ExpName = ExpName;
+    experiment.ExpDesc = ExpDesc;
+    experiment.ExpSoln = ExpSoln;
+    experiment.youtubeLink = youtubeLink;
+
+    await experiment.save();
+
+    return experiment;
   } catch (error) {
     console.log(error);
     throw error;

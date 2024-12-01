@@ -10,9 +10,6 @@ export async function GET(req: Request, { params: experimentId }) {
 
     const experiment = await Experiment.findById(experimentId.id);
 
-    const changeStream = Experiment.watch();
-    changeStream.close();
-
     return NextResponse.json(experiment);
   } catch (error) {
     console.error("[EXPERIMENT_ID_GET]", error);

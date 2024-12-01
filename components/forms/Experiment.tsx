@@ -26,8 +26,8 @@ dotenv.config();
 
 interface ExpProps {
     type?: string,
-    monogoUserId? : string,
-    experimentDetails? : string
+    monogoUserId?: string,
+    experimentDetails?: string
 }
 
 export default function ExperimentForm({
@@ -53,6 +53,7 @@ export default function ExperimentForm({
             ExpName: parsedExperimentDetails ? parsedExperimentDetails.ExpName || "" : "",
             ExpDesc: parsedExperimentDetails ? parsedExperimentDetails.ExpDesc || "" : "",
             ExpSoln: parsedExperimentDetails ? parsedExperimentDetails.ExpSoln || "" : "",
+            youtubeLink: parsedExperimentDetails ? parsedExperimentDetails.youtubeLink || "" : ""
         }
     });
 
@@ -292,6 +293,25 @@ export default function ExperimentForm({
                                 Upload all the Text and Code Solution of the Experiment
                             </FormDescription>
                             <FormMessage className="font-semibold text-destructive" />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="youtubeLink"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>YouTube Link</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="https://youtube.com/watch?v=..."
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                Paste the YouTube video URL for this experiment
+                            </FormDescription>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

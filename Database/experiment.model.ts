@@ -10,6 +10,7 @@ export interface IExperiment extends Document{
   ExpName: string;
   ExpDesc: string;
   ExpSoln: string;
+  youtubeLink?: string; 
 }
 
 const ExperimentSchema = new Schema({
@@ -22,6 +23,7 @@ const ExperimentSchema = new Schema({
   ExpName: { type: String, required: true },
   ExpDesc: { type: String, required: true },
   ExpSoln: { type: String, required: true },
+  youtubeLink: { type: String, required: false }, 
 });
 
 const Experiment = models.Experiment || model("Experiment", ExperimentSchema);
